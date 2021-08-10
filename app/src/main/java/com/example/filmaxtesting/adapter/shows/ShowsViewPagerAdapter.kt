@@ -1,4 +1,4 @@
-package com.example.filmaxtesting.adapter
+package com.example.filmaxtesting.adapter.shows
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

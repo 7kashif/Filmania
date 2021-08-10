@@ -6,27 +6,38 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.filmaxtesting.R
-import com.example.filmaxtesting.adapter.TvShowsAdapter
+import com.example.filmaxtesting.ViewDialog
+import com.example.filmaxtesting.adapter.shows.TvShowsAdapter
 import com.example.filmaxtesting.dataClasses.detail.ItemDetails
 import com.example.filmaxtesting.databinding.FragmentTopRatedShowsBinding
-import com.example.filmaxtesting.viewModel.PagingViewModel
+import com.example.filmaxtesting.roomDatabase.BookMarkDatabase
+import com.example.filmaxtesting.viewModel.TopRatedShowsViewModel
+import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModel
+import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModelFactory
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 
 class TopRatedShowsFragment : Fragment() {
     private lateinit var binding:FragmentTopRatedShowsBinding
     private lateinit var showsAdapter: TvShowsAdapter
-    private val viewModel : PagingViewModel by activityViewModels()
+    private val pagingViewModel : TopRatedShowsViewModel by activityViewModels()
+    private lateinit var sharedViewModel: SharedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding= FragmentTopRatedShowsBinding.inflate(inflater)
+        val application= requireNotNull(this.activity).application
+        val dataBase= BookMarkDatabase.getInstance(application).bookMarkDatabaseDao
+        sharedViewModel= ViewModelProvider(this
+            , SharedViewModelFactory(dataBase,application))
+            .get(SharedViewModel::class.java)
 
         setUpRv()
         loadData()
@@ -38,13 +49,10 @@ class TopRatedShowsFragment : Fragment() {
                 overView = it.overview,
                 releaseDate = it.first_air_date,
                 language = it.original_language,
-                posterPath = it.poster_path
+                posterPath = it.poster_path,
+                backDropPath = it.backdrop_path
             )
-            val bundle=Bundle().apply {
-                putParcelable("item",item)
-            }
-            viewModel.lastFragment="shows"
-            findNavController().navigate(R.id.action_mainFragment_to_detailFragment,bundle)
+            ViewDialog.showDetailDialog(activity,item,sharedViewModel)
         }
 
         return binding.root
@@ -61,7 +69,7 @@ class TopRatedShowsFragment : Fragment() {
 
     private fun loadData() {
         lifecycleScope.launch{
-            viewModel.topRatedShowsList.collect {
+            pagingViewModel.topRatedShowsList.flowOn(Dispatchers.IO).collect {
                 showsAdapter.submitData(it)
             }
         }

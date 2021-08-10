@@ -32,9 +32,9 @@ class MoviesAdapter:PagingDataAdapter<Movies, MoviesAdapter.ImageViewHolder>(dif
 
         holder.binding.apply {
             holder.itemView.apply {
-                title.text=currentMovie.title
+                listItemTitle.text=currentMovie.title
                 val posterPath=Constants.BASE_IMAGE_PATH + currentMovie.poster_path
-                Glide.with(this).load(posterPath).into(poster)
+                Glide.with(this).load(posterPath).into(listItemPoster)
                 val rating=currentMovie.vote_average
                 voteCount.text="$rating"
                 voteCount.background=when(rating) {

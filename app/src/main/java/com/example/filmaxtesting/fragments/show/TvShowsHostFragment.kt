@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.filmaxtesting.adapter.ShowsViewPagerAdapter
+import com.example.filmaxtesting.adapter.shows.ShowsViewPagerAdapter
 import com.example.filmaxtesting.databinding.FragmentTvShowsHostBinding
 import com.google.android.material.tabs.TabLayoutMediator
 

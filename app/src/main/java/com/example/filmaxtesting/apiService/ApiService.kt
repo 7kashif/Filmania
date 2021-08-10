@@ -31,4 +31,10 @@ interface ApiService {
         @Query("api_key")api_key:String= Constants.API_KEY,
         @Query("page")page:Int
     ):Response<TvShowsResponse>
+
+    @GET(Constants.END_SEARCH_MOVIES_URL)
+    suspend fun searchMovies(
+        @Query("api_key") api_key:String=Constants.API_KEY,
+        @Query("query") query:String
+    ):Response<MoviesResponse>
 }

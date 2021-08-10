@@ -1,4 +1,4 @@
-package com.example.filmaxtesting.adapter
+package com.example.filmaxtesting.adapter.shows
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -32,9 +32,9 @@ class TvShowsAdapter: PagingDataAdapter<TvShows, TvShowsAdapter.ImageViewHolder>
 
         holder.binding.apply {
             holder.itemView.apply {
-                title.text=currentShow.name
+                listItemTitle.text=currentShow.name
                 val posterPath= Constants.BASE_IMAGE_PATH + currentShow.poster_path
-                Glide.with(this).load(posterPath).into(poster)
+                Glide.with(this).load(posterPath).into(listItemPoster)
                 val rating=currentShow.vote_average
                 voteCount.text="$rating"
                 voteCount.background=when(rating) {

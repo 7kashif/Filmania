@@ -10,5 +10,6 @@ data class ItemDetails(
     val overView:String,
     val releaseDate:String,
     val language:String,
-    val posterPath:String
+    val posterPath:String,
+    val backDropPath:String
 ):Parcelable
