@@ -18,6 +18,7 @@ import com.example.filmaxtesting.R
 import com.example.filmaxtesting.adapter.CastAdapter
 import com.example.filmaxtesting.adapter.GenreAdapter
 import com.example.filmaxtesting.adapter.PostersAdapter
+import com.example.filmaxtesting.adapter.movie.SimilarMoviesAdapter
 import com.example.filmaxtesting.dataClasses.credits.CreditsResponse
 import com.example.filmaxtesting.dataClasses.movieDetails.MovieDetailsResponse
 import com.example.filmaxtesting.databinding.FragmentDialogMovieDetailBinding
@@ -35,6 +36,7 @@ class DialogDetailFragment(private val movieId: Int) : DialogFragment() {
     private lateinit var genreAdapter: GenreAdapter
     private lateinit var posterAdapter: PostersAdapter
     private lateinit var castAdapter: CastAdapter
+    private lateinit var similarMoviesAdapter: SimilarMoviesAdapter
 
 
     override fun onCreateView(
@@ -58,41 +60,31 @@ class DialogDetailFragment(private val movieId: Int) : DialogFragment() {
         setupGenreRv()
         setupPostersRv()
         setUpCastRv()
+        setUpSimilarMoviesRv()
+        loadData()
+
+        similarMoviesAdapter.setOnItemClickListener { item ->
+            activity?.let {
+                val dialog = DialogDetailFragment(item.id)
+                dialog.show(it.supportFragmentManager, "Detail Dialog")
+            }
+        }
 
         binding.closeButton.setOnClickListener {
             dialog?.dismiss()
         }
 
-        lifecycleScope.launch {
-            viewModel.movieDetail.observe(viewLifecycleOwner, { response ->
-                if (response.isSuccessful && response.body() != null) {
-                    viewModel.getPosters(movieId)
-                    genreAdapter.submitList(response.body()!!.genres)
-                    setUpViews(response.body()!!)
-                } else {
-                    Toast.makeText(activity, "Response Failed", Toast.LENGTH_SHORT).show()
-                }
-            })
-            viewModel.posters.observe(viewLifecycleOwner, { response ->
-                if (response.isSuccessful && response.body() != null) {
-                    viewModel.getCredits(movieId)
-                    posterAdapter.submitList(response.body()!!.backdrops)
-                } else {
-                    Toast.makeText(activity, "Response Failed", Toast.LENGTH_SHORT).show()
-                }
-            })
-            viewModel.credits.observe(viewLifecycleOwner, { response ->
-                if (response.isSuccessful && response.body() != null) {
-                    viewModel.getCredits(movieId)
-                    setUpCastAndCrew(response.body()!!)
-
-                } else {
-                    Toast.makeText(activity, "Response Failed", Toast.LENGTH_SHORT).show()
-                }
-            })
-        }
 
         return binding.root
+    }
+
+    private fun setUpSimilarMoviesRv() {
+        similarMoviesAdapter = SimilarMoviesAdapter()
+        binding.similarMoviesRv.apply {
+            adapter = similarMoviesAdapter
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            setHasFixedSize(true)
+        }
     }
 
     private fun setupGenreRv() {
@@ -163,6 +155,48 @@ class DialogDetailFragment(private val movieId: Int) : DialogFragment() {
             director.text = "Director : $directorName"
             writer.text = "Writer : $screenPlay"
         }
+    }
+
+    private fun loadData() {
+        lifecycleScope.launch {
+            viewModel.movieDetail.observe(viewLifecycleOwner, { response ->
+                if (response.isSuccessful && response.body() != null) {
+                    viewModel.getPosters(movieId)
+                    genreAdapter.submitList(response.body()!!.genres)
+                    setUpViews(response.body()!!)
+                } else {
+                    Toast.makeText(activity, "Response Failed", Toast.LENGTH_SHORT).show()
+                }
+            })
+
+            viewModel.posters.observe(viewLifecycleOwner, { response ->
+                if (response.isSuccessful && response.body() != null) {
+                    viewModel.getCredits(movieId)
+                    posterAdapter.submitList(response.body()!!.backdrops)
+                } else {
+                    Toast.makeText(activity, "Response Failed", Toast.LENGTH_SHORT).show()
+                }
+            })
+
+            viewModel.credits.observe(viewLifecycleOwner, { response ->
+                if (response.isSuccessful && response.body() != null) {
+                    viewModel.getSimilarMovies(movieId)
+                    setUpCastAndCrew(response.body()!!)
+
+                } else {
+                    Toast.makeText(activity, "Response Failed", Toast.LENGTH_SHORT).show()
+                }
+            })
+
+            viewModel.similarMoviesList.observe(viewLifecycleOwner, {
+                if (it.isSuccessful && it.body() != null) {
+                    similarMoviesAdapter.submitList(it.body()!!.results)
+                } else {
+                    Toast.makeText(activity, "Response Failed", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+
     }
 
 

@@ -59,4 +59,11 @@ interface ApiService {
         @Path("movieId") movieId:Int,
         @Query("api_key") api_key:String=Constants.API_KEY,
     ):Response<CreditsResponse>
+
+    @GET("/3/movie/{movieId}/similar")
+    suspend fun getSimilarMovies(
+        @Path("movieId") movieId:Int,
+        @Query("api_key") api_key:String=Constants.API_KEY,
+    ):Response<MoviesResponse>
+
 }
