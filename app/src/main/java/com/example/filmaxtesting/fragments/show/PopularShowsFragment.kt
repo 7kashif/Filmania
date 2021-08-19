@@ -42,6 +42,11 @@ class PopularShowsFragment : Fragment() {
         setUpRv()
         loadData()
 
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            loadData()
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
+
         showsAdapter.setOnItemClickListener {
             val item= ItemDetails(
                 title=it.name,

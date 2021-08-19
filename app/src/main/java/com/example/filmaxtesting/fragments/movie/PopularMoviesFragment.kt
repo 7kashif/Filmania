@@ -9,10 +9,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.filmaxtesting.ViewDialog
 import com.example.filmaxtesting.adapter.movie.MoviesAdapter
-import com.example.filmaxtesting.dataClasses.detail.ItemDetails
 import com.example.filmaxtesting.databinding.FragmentPopularMoviesBinding
+import com.example.filmaxtesting.fragments.DialogDetailFragment
 import com.example.filmaxtesting.roomDatabase.BookMarkDatabase
 import com.example.filmaxtesting.viewModel.PopularMoviesViewModel
 import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModel
@@ -21,7 +20,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
-
 
 class PopularMoviesFragment : Fragment() {
     private lateinit var binding: FragmentPopularMoviesBinding
@@ -37,23 +35,18 @@ class PopularMoviesFragment : Fragment() {
         val application= requireNotNull(this.activity).application
         val dataBase= BookMarkDatabase.getInstance(application).bookMarkDatabaseDao
         sharedViewModel= ViewModelProvider(this
-            , SharedViewModelFactory(dataBase,application))
+            , SharedViewModelFactory(dataBase,application)
+        )
             .get(SharedViewModel::class.java)
 
         setUpRv()
         loadData()
 
-        moviesAdapter.setOnItemClickListener {
-            val item=ItemDetails(
-                title=it.title,
-                voteAverage = it.vote_average,
-                overView = it.overview,
-                releaseDate = it.release_date,
-                language = it.original_language,
-                posterPath = it.poster_path,
-                backDropPath = it.backdrop_path
-            )
-            ViewDialog.showDetailDialog(activity,item,sharedViewModel)
+        moviesAdapter.setOnItemClickListener {item->
+            activity?.let {
+                val dialog= DialogDetailFragment(item.id)
+                dialog.show(it.supportFragmentManager,"Detail Dialog")
+            }
         }
 
         return binding.root
@@ -70,7 +63,7 @@ class PopularMoviesFragment : Fragment() {
 
     private fun loadData() {
         lifecycleScope.launch{
-            pagingViewModel.popularMoviesList.flowOn(Dispatchers.IO).collect {
+            pagingViewModel.popularMoviesList.flowOn(Dispatchers.Default).collect {
                 moviesAdapter.submitData(it)
             }
         }

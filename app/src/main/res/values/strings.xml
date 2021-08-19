@@ -14,8 +14,15 @@
     <string name="set_overview"><b>Overview:</b> %1$s</string>
     <string name="set_origin_countries"><b>Countries:</b> %1$s</string>
     <string name="your_bookmarks_will_appear_here">Your BookMarks will appear here....!!!</string>
-    <string name="movies">Movies</string>
     <string name="bookmarks">BookMarks</string>
+    <string name="search">Search</string>
+    <string name="movies">Movies</string>
     <string name="tvshows">TvShows</string>
+    <string name="clear_all">Clear All</string>
+    <string name="favorites">Favorites</string>
+    <string name="details">Details</string>
+    <string name="images">Images</string>
+    <string name="add_to_favorites">Add to Favorites</string>
+    <string name="cast">Cast</string>
 
 </resources>

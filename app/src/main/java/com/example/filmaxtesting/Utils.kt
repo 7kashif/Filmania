@@ -11,6 +11,8 @@ import com.bumptech.glide.Glide
 import com.example.filmaxtesting.dataClasses.detail.ItemDetails
 import com.example.filmaxtesting.roomDatabase.BookMark
 import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 object Constants {
 
@@ -30,20 +32,20 @@ object Constants {
 //}
 
 object ViewDialog {
-    fun showDetailDialog(activity: Activity?, item: ItemDetails,sharedViewModel: SharedViewModel) {
+    fun showDetailDialog(activity: Activity?, item: ItemDetails, sharedViewModel: SharedViewModel) {
+
         val dialog= Dialog(activity!!,android.R.style.Theme_Translucent_NoTitleBar_Fullscreen)
         dialog.setContentView(R.layout.detail_view)
         dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.MATCH_PARENT)
 
         val dialogRemoveButton = dialog.findViewById<ImageButton>(R.id.closeButton)
-        val dialogBg=dialog.findViewById<ImageView>(R.id.bgIv)
         val dialogPoster=dialog.findViewById<ImageView>(R.id.dialogPoster)
         val dialogTitle=dialog.findViewById<TextView>(R.id.dialogTitle)
-        val dialogRating=dialog.findViewById<TextView>(R.id.dialogRating)
         val dialogLanguage=dialog.findViewById<TextView>(R.id.dialogLanguage)
         val dialogReleaseDate=dialog.findViewById<TextView>(R.id.dialogReleaseDate)
         val dialogOverView=dialog.findViewById<TextView>(R.id.dialogOverView)
         val bookMarkCb=dialog.findViewById<CheckBox>(R.id.bookMarkCB)
+        val dialogRating=dialog.findViewById<TextView>(R.id.dialogRating)
 
         dialogRemoveButton.setOnClickListener {
             dialog.dismiss()
@@ -63,13 +65,13 @@ object ViewDialog {
         bookMarkCb.isChecked=itemFound
 
         loadImage(activity,item.posterPath,dialogPoster)
-        loadImage(activity,item.backDropPath,dialogBg)
 
-        dialogTitle.text="Title: ${item.title}"
-        dialogRating.text="Rating: ${item.voteAverage}"
-        dialogLanguage.text="Language: ${item.language}"
-        dialogReleaseDate.text="Release Date: ${item.releaseDate}"
-        dialogOverView.text="Overview:\n\t ${item.overView}"
+        dialogTitle.text= item.title
+        dialogLanguage.text= item.language
+        dialogReleaseDate.text= item.releaseDate
+        dialogOverView.text= item.overView
+        dialogRating.text="${item.voteAverage}/10"
+
 
         bookMarkCb.setOnCheckedChangeListener{view,bool->
             if(view.isPressed) {
@@ -97,4 +99,19 @@ object ViewDialog {
 
 fun loadImage(activity: Activity,posterPath:String,imageView:ImageView ) {
     Glide.with(activity).load(Constants.BASE_IMAGE_PATH + posterPath).into(imageView)
+}
+
+fun androidx.appcompat.widget.SearchView.getQueryTextChangeStateFlow() : StateFlow<String> {
+    val query= MutableStateFlow("")
+    setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
+        override fun onQueryTextSubmit(query: String?): Boolean =true
+
+        override fun onQueryTextChange(newText: String?): Boolean {
+            if (newText != null) {
+                query.value=newText
+            }
+            return true
+        }
+    })
+    return query
 }

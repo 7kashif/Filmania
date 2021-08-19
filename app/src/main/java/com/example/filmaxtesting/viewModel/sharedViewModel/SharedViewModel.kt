@@ -16,6 +16,8 @@ class SharedViewModel(
     private val uiScope= CoroutineScope(Dispatchers.Main+viewModelJob)
     val allBookMarks=dataBase.getAllBookMarks()
 
+
+
     fun createBookMark(item: BookMark) {
         uiScope.launch {
             val bookMark=BookMark()

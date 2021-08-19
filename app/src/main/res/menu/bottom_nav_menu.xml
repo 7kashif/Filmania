@@ -11,7 +11,12 @@
         android:icon="@drawable/ic_tv_shows"/>
 
     <item
+        android:id="@+id/menuSearch"
+        android:title="@string/search"
+        android:icon="@drawable/ic_search"/>
+
+    <item
         android:id="@+id/menuBookMarks"
-        android:title="@string/bookmarks"
-        android:icon="@drawable/ic_bookmark"/>
+        android:title="@string/favorites"
+        android:icon="@drawable/ic_favorite_unchecked"/>
 </menu>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.filmaxtesting.viewModel.SearchViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".SearchFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/searchLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/curve_view"
+                android:hint="@string/search"
+                android:textColorHint="@color/off_white"
+                android:textSize="20sp"
+                android:cursorVisible="true"
+                android:iconifiedByDefault="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--        <RadioGroup-->
+            <!--            android:id="@+id/searchRadioGroup"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:orientation="horizontal"-->
+            <!--            android:gravity="center"-->
+            <!--            android:checkedButton="@id/moviesRadioButton"-->
+            <!--            app:layout_constraintTop_toBottomOf="@id/searchTv">-->
+            <!--            <RadioButton-->
+            <!--                android:id="@+id/moviesRadioButton"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:textColor="@color/white"-->
+            <!--                android:textSize="15sp"-->
+            <!--                android:text="@string/movies"-->
+            <!--                android:layout_marginEnd="30dp"/>-->
+            <!--            <RadioButton-->
+            <!--                android:id="@+id/showsRadioButton"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:textColor="@color/white"-->
+            <!--                android:textSize="15sp"-->
+            <!--                android:text="@string/tvshows"/>-->
+            <!--        </RadioGroup>-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchLayout" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchRv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progressbar" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.filmaxtesting.R
 import com.example.filmaxtesting.ViewDialog
 import com.example.filmaxtesting.adapter.BookMarksAdapter
 import com.example.filmaxtesting.dataClasses.detail.ItemDetails
@@ -53,8 +55,9 @@ class BookMarksFragment : Fragment() {
             ViewDialog.showDetailDialog(activity,item,sharedViewModel)
         }
 
-        binding.clearAll.setOnClickListener {
-            sharedViewModel.onClear()
+
+        binding.popUpMenu.setOnClickListener {
+            showMenu(it)
         }
 
         return binding.root
@@ -66,6 +69,19 @@ class BookMarksFragment : Fragment() {
             adapter=bookMarkAdapter
             layoutManager=GridLayoutManager(activity,3)
             setHasFixedSize(true)
+        }
+    }
+
+    private fun showMenu(v:View) {
+        PopupMenu(activity,v).apply {
+            setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.clearAllBookmarks -> sharedViewModel.onClear()
+                }
+                true
+            }
+            inflate(R.menu.bookmark_clear_menu)
+            show()
         }
     }
 }
