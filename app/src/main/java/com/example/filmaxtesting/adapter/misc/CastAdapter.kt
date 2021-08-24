@@ -1,4 +1,4 @@
-package com.example.filmaxtesting.adapter
+package com.example.filmaxtesting.adapter.misc
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,7 +10,7 @@ import com.example.filmaxtesting.Constants
 import com.example.filmaxtesting.dataClasses.credits.Cast
 import com.example.filmaxtesting.databinding.CastListItemBinding
 
-class CastAdapter:ListAdapter<Cast,CastAdapter.CastItemViewHolder>(diffCallBack) {
+class CastAdapter:ListAdapter<Cast, CastAdapter.CastItemViewHolder>(diffCallBack) {
 
     inner class CastItemViewHolder(val binding:CastListItemBinding):RecyclerView.ViewHolder(binding.root)
 
@@ -47,6 +47,17 @@ class CastAdapter:ListAdapter<Cast,CastAdapter.CastItemViewHolder>(diffCallBack)
                 actorName.text=item.name
                 character.text=item.character
             }
+            root.setOnClickListener {
+                onItemClickListener?.let {
+                    it(item)
+                }
+            }
         }
+    }
+
+    //setting up click listener on recyclerview items
+    private var onItemClickListener: ((Cast) -> Unit)? = null
+    fun setOnItemClickListener(listener: (Cast) -> Unit) {
+        onItemClickListener = listener
     }
 }

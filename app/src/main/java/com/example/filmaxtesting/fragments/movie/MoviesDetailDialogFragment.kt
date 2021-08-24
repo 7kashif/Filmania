@@ -1,4 +1,4 @@
-package com.example.filmaxtesting.fragments
+package com.example.filmaxtesting.fragments.movie
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,13 +15,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.filmaxtesting.Constants
 import com.example.filmaxtesting.R
-import com.example.filmaxtesting.adapter.CastAdapter
-import com.example.filmaxtesting.adapter.GenreAdapter
-import com.example.filmaxtesting.adapter.PostersAdapter
+import com.example.filmaxtesting.adapter.misc.CastAdapter
+import com.example.filmaxtesting.adapter.misc.GenreAdapter
+import com.example.filmaxtesting.adapter.misc.PostersAdapter
 import com.example.filmaxtesting.adapter.movie.SimilarMoviesAdapter
 import com.example.filmaxtesting.dataClasses.credits.CreditsResponse
 import com.example.filmaxtesting.dataClasses.movieDetails.MovieDetailsResponse
 import com.example.filmaxtesting.databinding.FragmentDialogMovieDetailBinding
+import com.example.filmaxtesting.fragments.PersonDetailsDialogFragment
 import com.example.filmaxtesting.roomDatabase.BookMarkDatabase
 import com.example.filmaxtesting.viewModel.movieDetails.MovieDetailsViewModel
 import com.example.filmaxtesting.viewModel.movieDetails.MovieDetailsViewModelFactory
@@ -29,7 +30,7 @@ import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModel
 import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModelFactory
 import kotlinx.coroutines.launch
 
-class DialogDetailFragment(private val movieId: Int) : DialogFragment() {
+class MoviesDetailDialogFragment(private val movieId: Int) : DialogFragment() {
     private lateinit var binding: FragmentDialogMovieDetailBinding
     private lateinit var viewModel: MovieDetailsViewModel
     private lateinit var sharedViewModel: SharedViewModel
@@ -65,7 +66,14 @@ class DialogDetailFragment(private val movieId: Int) : DialogFragment() {
 
         similarMoviesAdapter.setOnItemClickListener { item ->
             activity?.let {
-                val dialog = DialogDetailFragment(item.id)
+                val dialog = MoviesDetailDialogFragment(item.id)
+                dialog.show(it.supportFragmentManager, "Detail Dialog")
+            }
+        }
+
+        castAdapter.setOnItemClickListener {item->
+            activity?.let {
+                val dialog = PersonDetailsDialogFragment(item.id)
                 dialog.show(it.supportFragmentManager, "Detail Dialog")
             }
         }
@@ -117,8 +125,8 @@ class DialogDetailFragment(private val movieId: Int) : DialogFragment() {
             status.text = item.status
             val hrs: Int = item.runtime / 60
             val min: Int = item.runtime % 60
-            runtime.text = "${hrs}h ${min}m"
-            rating.text = "${item.vote_average}/10"
+            runtime.text = getString(R.string.movieRuntime,hrs.toString(),min.toString())
+            rating.text = getString(R.string.set_rating,item.vote_average.toString())
             voteCount.text = item.vote_count.toString()
             overView.text = item.overview
 
@@ -126,7 +134,7 @@ class DialogDetailFragment(private val movieId: Int) : DialogFragment() {
 
                 Glide.with(it)
                     .load(Constants.BASE_IMAGE_PATH + item.poster_path)
-                    .transform(RoundedCorners(8))
+                    .transform(RoundedCorners(10))
                     .into(poster)
 
                 backDrop.load(Constants.BASE_IMAGE_PATH + item.backdrop_path) {
@@ -142,8 +150,8 @@ class DialogDetailFragment(private val movieId: Int) : DialogFragment() {
         castAdapter.submitList(item.cast)
 
         val crew = item.crew
-        var directorName = ""
-        var screenPlay = ""
+        var directorName = "-"
+        var screenPlay = "-"
         crew.forEach {
             if (it.job == "Director")
                 directorName = it.name
@@ -152,8 +160,8 @@ class DialogDetailFragment(private val movieId: Int) : DialogFragment() {
         }
 
         binding.apply {
-            director.text = "Director : $directorName"
-            writer.text = "Writer : $screenPlay"
+            director.text = getString(R.string.director,directorName)
+            writer.text = getString(R.string.writer,screenPlay)
         }
     }
 
@@ -182,7 +190,6 @@ class DialogDetailFragment(private val movieId: Int) : DialogFragment() {
                 if (response.isSuccessful && response.body() != null) {
                     viewModel.getSimilarMovies(movieId)
                     setUpCastAndCrew(response.body()!!)
-
                 } else {
                     Toast.makeText(activity, "Response Failed", Toast.LENGTH_SHORT).show()
                 }
@@ -191,6 +198,7 @@ class DialogDetailFragment(private val movieId: Int) : DialogFragment() {
             viewModel.similarMoviesList.observe(viewLifecycleOwner, {
                 if (it.isSuccessful && it.body() != null) {
                     similarMoviesAdapter.submitList(it.body()!!.results)
+                    binding.loadingLayout.visibility=View.GONE
                 } else {
                     Toast.makeText(activity, "Response Failed", Toast.LENGTH_SHORT).show()
                 }

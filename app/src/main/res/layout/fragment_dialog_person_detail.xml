@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/limed_spruce">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp">
+
+            <ImageButton
+                android:id="@+id/closeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back"
+                android:layout_marginTop="15dp"
+                android:background="@color/transparent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <ImageView
+                android:id="@+id/profilePic"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="fitXY"
+                app:layout_constraintTop_toBottomOf="@id/closeButton"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:src="@drawable/iron_man_poster"/>
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintTop_toTopOf="@id/profilePic"
+                app:layout_constraintStart_toEndOf="@id/profilePic"
+                app:layout_constraintBottom_toBottomOf="@id/profilePic"
+                tools:text="Rayan Renolds"/>
+
+            <TextView
+                android:id="@+id/field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/nepal"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/name"
+                app:layout_constraintStart_toStartOf="@id/name"
+                tools:text="Acting"/>
+            <TextView
+                android:id="@+id/about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="@string/about"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/profilePic"
+                app:layout_constraintStart_toStartOf="parent"/>
+            <View
+                android:id="@+id/aboutLine"
+                android:background="@color/nepal"
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/about"/>
+
+            <TextView
+                android:id="@+id/ageTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/nepal"
+                android:text="@string/age"
+                android:textSize="17sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/aboutLine"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                app:layout_constraintTop_toTopOf="@id/ageTitle"
+                app:layout_constraintBottom_toBottomOf="@id/ageTitle"
+                app:layout_constraintStart_toEndOf="@id/ageTitle"
+                tools:text="44"/>
+
+            <TextView
+                android:id="@+id/bdayText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/nepal"
+                android:text="@string/born_on"
+                android:textSize="17sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/ageTitle"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/birthday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                app:layout_constraintTop_toTopOf="@id/bdayText"
+                app:layout_constraintBottom_toBottomOf="@id/bdayText"
+                app:layout_constraintStart_toEndOf="@id/bdayText"
+                tools:text="October 23, 1974"/>
+
+            <TextView
+                android:id="@+id/fromText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/nepal"
+                android:text="@string/from"
+                android:textSize="17sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/bdayText"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/from"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                app:layout_constraintTop_toTopOf="@id/fromText"
+                app:layout_constraintBottom_toBottomOf="@id/fromText"
+                app:layout_constraintStart_toEndOf="@id/fromText"
+                tools:text="Vancouver, British Columbia, Canada"/>
+
+            <TextView
+                android:id="@+id/biographyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/nepal"
+                android:text="@string/biography"
+                android:textSize="17sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/fromText"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/biography"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@id/biographyText"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="William Bradley Pitt (born December 18, 1963) is an American actor and film producer."/>
+
+            <View
+                android:id="@+id/imagesLine"
+                android:background="@color/nepal"
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/biography"/>
+
+            <TextView
+                android:id="@+id/Images"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/images"
+                android:textColor="@color/white"
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/imagesLine"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/imagesRv"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@id/Images" />
+
+            <View
+                android:id="@+id/famousForLine"
+                android:background="@color/nepal"
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/imagesRv"/>
+
+            <TextView
+                android:id="@+id/famousForText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/famous_movies_amp_shows"
+                android:textColor="@color/white"
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/famousForLine"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/famousMoviesShows"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@id/famousForText" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</LinearLayout>

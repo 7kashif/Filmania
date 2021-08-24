@@ -1,4 +1,4 @@
-package com.example.filmaxtesting.adapter
+package com.example.filmaxtesting.adapter.misc
 
 
 import android.view.LayoutInflater

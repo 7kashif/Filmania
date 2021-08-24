@@ -47,7 +47,7 @@ class MovieDetailsViewModel(val id: Int) : ViewModel() {
     fun getPosters(movieId: Int) {
         viewModelScope.launch {
             _posters.value = try {
-                RetrofitInstance.api.getRelatedImages(movieId = movieId)
+                RetrofitInstance.api.getMovieRelatedImages(movieId = movieId)
             } catch (e: IOException) {
                 Log.e("sharedViewModel", "IOException, connection problem.")
                 return@launch
@@ -62,7 +62,7 @@ class MovieDetailsViewModel(val id: Int) : ViewModel() {
     fun getCredits(movieId: Int) {
         viewModelScope.launch {
             _credits.value = try {
-                RetrofitInstance.api.getCredits(movieId = movieId)
+                RetrofitInstance.api.getMovieCredits(movieId = movieId)
             } catch (e: IOException) {
                 Log.e("sharedViewModel", "IOException, connection problem.")
                 return@launch

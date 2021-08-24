@@ -3,16 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="viewModel"
-            type="com.example.filmaxtesting.viewModel.SearchViewModel" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".SearchFragment">
+        tools:context=".fragments.SearchFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/searchLayout"
@@ -28,40 +22,14 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@drawable/curve_view"
-                android:hint="@string/search"
-                android:textColorHint="@color/off_white"
                 android:textSize="20sp"
                 android:cursorVisible="true"
-                android:iconifiedByDefault="false"
+                app:iconifiedByDefault="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!--        <RadioGroup-->
-            <!--            android:id="@+id/searchRadioGroup"-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:orientation="horizontal"-->
-            <!--            android:gravity="center"-->
-            <!--            android:checkedButton="@id/moviesRadioButton"-->
-            <!--            app:layout_constraintTop_toBottomOf="@id/searchTv">-->
-            <!--            <RadioButton-->
-            <!--                android:id="@+id/moviesRadioButton"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:textColor="@color/white"-->
-            <!--                android:textSize="15sp"-->
-            <!--                android:text="@string/movies"-->
-            <!--                android:layout_marginEnd="30dp"/>-->
-            <!--            <RadioButton-->
-            <!--                android:id="@+id/showsRadioButton"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:textColor="@color/white"-->
-            <!--                android:textSize="15sp"-->
-            <!--                android:text="@string/tvshows"/>-->
-            <!--        </RadioGroup>-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -70,6 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
+            android:indeterminateTint="@color/yellow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/searchLayout" />

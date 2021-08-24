@@ -16,16 +16,6 @@ class SearchViewModel :ViewModel() {
     private val _moviesResponse=MutableLiveData<Response<MoviesResponse>>()
     val moviesResponse:LiveData<Response<MoviesResponse>> get() = _moviesResponse
 
-//    var queryChannel:MutableStateFlow<String?>?= MutableStateFlow(null)
-//    fun callQueryChannel() {
-//        queryChannel?.debounce(500L)
-//            ?.onEach {
-//                searchMovies(it!!)
-//            }
-//            ?.launchIn(viewModelScope)
-//    }
-
-
 
     fun searchMovies(title:String) {
       if(title.isNotEmpty()){

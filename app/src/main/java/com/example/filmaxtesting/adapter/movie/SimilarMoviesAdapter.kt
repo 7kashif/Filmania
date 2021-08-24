@@ -10,11 +10,11 @@ import com.bumptech.glide.Glide
 import com.example.filmaxtesting.Constants
 import com.example.filmaxtesting.R
 import com.example.filmaxtesting.dataClasses.movies.Movies
-import com.example.filmaxtesting.databinding.SimilarMoviesListItemBinding
+import com.example.filmaxtesting.databinding.SimilarListItemBinding
 
 class SimilarMoviesAdapter:ListAdapter<Movies,SimilarMoviesAdapter.ItemViewHolder>(diffCallback) {
 
-    inner class ItemViewHolder(val binding:SimilarMoviesListItemBinding):RecyclerView.ViewHolder(binding.root)
+    inner class ItemViewHolder(val binding: SimilarListItemBinding):RecyclerView.ViewHolder(binding.root)
 
     companion object{
         val diffCallback=object : DiffUtil.ItemCallback<Movies> () {
@@ -29,7 +29,7 @@ class SimilarMoviesAdapter:ListAdapter<Movies,SimilarMoviesAdapter.ItemViewHolde
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder(
-            SimilarMoviesListItemBinding.inflate(
+            SimilarListItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false

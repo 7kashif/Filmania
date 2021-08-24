@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.filmaxtesting.adapter.movie.MoviesAdapter
 import com.example.filmaxtesting.databinding.FragmentTopRatedMoviesBinding
-import com.example.filmaxtesting.fragments.DialogDetailFragment
 import com.example.filmaxtesting.roomDatabase.BookMarkDatabase
 import com.example.filmaxtesting.viewModel.TopRatedMoviesViewModel
 import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModel
@@ -43,9 +42,13 @@ class TopRatedMoviesFragment : Fragment() {
         setUpRv()
         loadData()
 
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            loadData()
+        }
+
         moviesAdapter.setOnItemClickListener {item ->
             activity?.let {
-                val dialog=DialogDetailFragment(item.id)
+                val dialog= MoviesDetailDialogFragment(item.id)
                 dialog.show(it.supportFragmentManager,"Detail Dialog")
             }
         }
@@ -66,6 +69,7 @@ class TopRatedMoviesFragment : Fragment() {
         lifecycleScope.launch{
             pagingViewModel.topRatedMoviesList.flowOn(Dispatchers.Default).collect {
                 moviesAdapter.submitData(it)
+                binding.swipeRefreshLayout.isRefreshing = false
             }
         }
     }

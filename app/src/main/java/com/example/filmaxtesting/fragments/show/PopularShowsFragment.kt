@@ -9,9 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.filmaxtesting.ViewDialog
 import com.example.filmaxtesting.adapter.shows.TvShowsAdapter
-import com.example.filmaxtesting.dataClasses.detail.ItemDetails
 import com.example.filmaxtesting.databinding.FragmentPopularShowsBinding
 import com.example.filmaxtesting.roomDatabase.BookMarkDatabase
 import com.example.filmaxtesting.viewModel.PopularShowsViewModel
@@ -47,17 +45,11 @@ class PopularShowsFragment : Fragment() {
             binding.swipeRefreshLayout.isRefreshing = false
         }
 
-        showsAdapter.setOnItemClickListener {
-            val item= ItemDetails(
-                title=it.name,
-                voteAverage = it.vote_average,
-                overView = it.overview,
-                releaseDate = it.first_air_date,
-                language = it.original_language,
-                posterPath = it.poster_path,
-                backDropPath = it.backdrop_path
-            )
-            ViewDialog.showDetailDialog(activity,item,sharedViewModel)
+        showsAdapter.setOnItemClickListener {item->
+            activity?.let {
+                val dialog = ShowDetailsDialogFragment(item.id)
+                dialog.show(it.supportFragmentManager,"ShowDetailsDialog")
+            }
         }
 
         return binding.root

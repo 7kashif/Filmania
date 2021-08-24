@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         val moviesFragment= MoviesHostFragment()
         val showsFragment= TvShowsHostFragment()
         val bookMarksFragment= BookMarksFragment()
-        val searchFragment=SearchFragment()
 
         setCurrentFragment(moviesFragment)
 
@@ -30,7 +29,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.menuMovies -> setCurrentFragment(moviesFragment)
                 R.id.menuShows -> setCurrentFragment(showsFragment)
                 R.id.menuBookMarks -> setCurrentFragment(bookMarksFragment)
-                R.id.menuSearch -> setCurrentFragment(searchFragment)
             }
             true
         }

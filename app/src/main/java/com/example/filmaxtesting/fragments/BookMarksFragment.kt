@@ -9,9 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.filmaxtesting.R
-import com.example.filmaxtesting.ViewDialog
 import com.example.filmaxtesting.adapter.BookMarksAdapter
-import com.example.filmaxtesting.dataClasses.detail.ItemDetails
 import com.example.filmaxtesting.databinding.FragmentBookMarksBinding
 import com.example.filmaxtesting.roomDatabase.BookMarkDatabase
 import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModel
@@ -41,20 +39,6 @@ class BookMarksFragment : Fragment() {
                 bookMarkAdapter.submitList(it)
             }
         })
-
-        bookMarkAdapter.setOnItemClickListener {
-            val item= ItemDetails(
-                title=it.title,
-                voteAverage = it.voteAverage,
-                overView = it.overView,
-                releaseDate = it.releaseDate,
-                language = it.language,
-                posterPath = it.posterPath,
-                backDropPath = it.backDropPath
-            )
-            ViewDialog.showDetailDialog(activity,item,sharedViewModel)
-        }
-
 
         binding.popUpMenu.setOnClickListener {
             showMenu(it)
