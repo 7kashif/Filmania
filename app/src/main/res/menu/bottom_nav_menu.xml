@@ -10,6 +10,14 @@
         android:title="@string/tvshows"
         android:icon="@drawable/ic_tv_shows"/>
 
+    <item android:id="@+id/placeHolder"
+        android:title=""/>
+
+    <item
+        android:id="@+id/menuPeople"
+        android:title="@string/people"
+        android:icon="@drawable/ic_person"/>
+
     <item
         android:id="@+id/menuBookMarks"
         android:title="@string/favorites"

@@ -22,8 +22,9 @@ import com.example.filmaxtesting.adapter.movie.SimilarMoviesAdapter
 import com.example.filmaxtesting.dataClasses.credits.CreditsResponse
 import com.example.filmaxtesting.dataClasses.movieDetails.MovieDetailsResponse
 import com.example.filmaxtesting.databinding.FragmentDialogMovieDetailBinding
-import com.example.filmaxtesting.fragments.PersonDetailsDialogFragment
+import com.example.filmaxtesting.fragments.people.PersonDetailsDialogFragment
 import com.example.filmaxtesting.roomDatabase.BookMarkDatabase
+import com.example.filmaxtesting.setReadMoreTextView
 import com.example.filmaxtesting.viewModel.movieDetails.MovieDetailsViewModel
 import com.example.filmaxtesting.viewModel.movieDetails.MovieDetailsViewModelFactory
 import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModel
@@ -128,7 +129,7 @@ class MoviesDetailDialogFragment(private val movieId: Int) : DialogFragment() {
             runtime.text = getString(R.string.movieRuntime,hrs.toString(),min.toString())
             rating.text = getString(R.string.set_rating,item.vote_average.toString())
             voteCount.text = item.vote_count.toString()
-            overView.text = item.overview
+            setReadMoreTextView(activity,overView,item.overview)
 
             activity?.let {
 

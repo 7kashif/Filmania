@@ -39,5 +39,7 @@
     <string name="from">From</string>
     <string name="biography">Biography</string>
     <string name="famous_movies_amp_shows"><![CDATA[Famous Movies & SHows]]></string>
+    <string name="popular_people_on_tmdb">Popular People on TMDB</string>
+    <string name="people">People</string>
 
 </resources>

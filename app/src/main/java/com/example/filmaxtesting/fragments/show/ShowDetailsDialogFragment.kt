@@ -9,11 +9,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import coil.load
-import coil.transform.BlurTransformation
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.example.filmaxtesting.Constants
 import com.example.filmaxtesting.R
 import com.example.filmaxtesting.adapter.misc.CastAdapter
 import com.example.filmaxtesting.adapter.misc.GenreAdapter
@@ -21,7 +16,10 @@ import com.example.filmaxtesting.adapter.misc.PostersAdapter
 import com.example.filmaxtesting.adapter.shows.SimilarShowsAdapter
 import com.example.filmaxtesting.dataClasses.showsDetails.ShowDetailsResponse
 import com.example.filmaxtesting.databinding.FragmentDialogShowDetailsBinding
-import com.example.filmaxtesting.fragments.PersonDetailsDialogFragment
+import com.example.filmaxtesting.fragments.people.PersonDetailsDialogFragment
+import com.example.filmaxtesting.loadBackDrop
+import com.example.filmaxtesting.loadPoster
+import com.example.filmaxtesting.setReadMoreTextView
 import com.example.filmaxtesting.viewModel.showDetails.ShowDetailsViewModel
 import com.example.filmaxtesting.viewModel.showDetails.ShowDetailsViewModelFactory
 import kotlinx.coroutines.launch
@@ -51,26 +49,28 @@ class ShowDetailsDialogFragment(private val showId: Int) : DialogFragment() {
         setUpCastRv()
         setUpSimilarShowsRv()
         loadData()
+        setClickListeners()
 
+
+        return binding.root
+    }
+
+    private fun setClickListeners() {
         binding.closeButton.setOnClickListener {
             dialog?.dismiss()
         }
 
-        castAdapter.setOnItemClickListener {item->
-            activity?.let {
-                val dialog = PersonDetailsDialogFragment(item.id)
-                dialog.show(it.supportFragmentManager, "Detail Dialog")
+        activity?.let {activity->
+            castAdapter.setOnItemClickListener {item->
+                    val dialog = PersonDetailsDialogFragment(item.id)
+                    dialog.show(activity.supportFragmentManager, "Detail Dialog")
+            }
+
+            similarShowsAdapter.setOnItemClickListener {item->
+                    val dialog=ShowDetailsDialogFragment(item.id)
+                    dialog.show(activity.supportFragmentManager,"ShowsDetailFragment")
             }
         }
-
-        similarShowsAdapter.setOnItemClickListener {item->
-            activity?.let {
-                val dialog=ShowDetailsDialogFragment(item.id)
-                dialog.show(it.supportFragmentManager,"ShowsDetailFragment")
-            }
-        }
-
-        return binding.root
     }
 
     private fun setupGenreRv() {
@@ -112,12 +112,16 @@ class ShowDetailsDialogFragment(private val showId: Int) : DialogFragment() {
             status.text = item.status
             rating.text = getString(R.string.set_rating, item.vote_average.toString())
             voteCount.text = item.vote_count.toString()
-            overView.text = item.overview
             firstAirDate.text = getString(R.string.firstAirDate, item.first_air_date)
             lastAirDate.text = getString(R.string.lastAirDate, item.last_air_date)
             seasonCount.text = getString(R.string.seasonCount, item.number_of_seasons)
             episodeCount.text = getString(R.string.episodeCount, item.number_of_episodes)
-            runtime.text = getString(R.string.episodeRunTime, item.episode_run_time[0])
+            if(item.episode_run_time.isNotEmpty())
+                runtime.text = getString(R.string.episodeRunTime, item.episode_run_time[0])
+            else
+                runtime.text = getString(R.string.episodeRunTime, 0)
+
+            setReadMoreTextView(activity,overView,item.overview)
 
             genreAdapter.submitList(item.genres)
 
@@ -128,27 +132,9 @@ class ShowDetailsDialogFragment(private val showId: Int) : DialogFragment() {
 
     private fun loadImagesInViews(item: ShowDetailsResponse) {
         activity?.let {
-
-            if (item.poster_path != null) {
-                Glide.with(it)
-                    .load(Constants.BASE_IMAGE_PATH + item.poster_path)
-                    .transform(RoundedCorners(10))
-                    .into(binding.poster)
-            } else {
-                Glide.with(it)
-                    .load(R.drawable.no_image)
-                    .transform(RoundedCorners(10))
-                    .into(binding.poster)
-            }
-
-            item.backdrop_path?.let { path ->
-                binding.backDrop.load(Constants.BASE_IMAGE_PATH + path) {
-                    crossfade(true)
-                    transformations(BlurTransformation(it, 25.0F, 15.0F))
-                }
-            }
+            loadPoster(it,item.poster_path,binding.poster)
+            loadBackDrop(it,item.backdrop_path,binding.backDrop)
         }
-
     }
 
     private fun loadData() {

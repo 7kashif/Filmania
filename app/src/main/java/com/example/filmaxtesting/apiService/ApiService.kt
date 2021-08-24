@@ -7,6 +7,8 @@ import com.example.filmaxtesting.dataClasses.movies.MoviesResponse
 import com.example.filmaxtesting.dataClasses.multiSearch.MultiSearchResponse
 import com.example.filmaxtesting.dataClasses.personDetails.PersonDetailsResponse
 import com.example.filmaxtesting.dataClasses.personDetails.PersonRelatedImagesResponse
+import com.example.filmaxtesting.dataClasses.personDetails.personRelatedMovieAndShows.PersonRelatedMultiResponse
+import com.example.filmaxtesting.dataClasses.popularPeople.PopularPeopleResponse
 import com.example.filmaxtesting.dataClasses.relatedImages.RelatedImagesResponse
 import com.example.filmaxtesting.dataClasses.showsDetails.ShowDetailsResponse
 import com.example.filmaxtesting.dataClasses.tvShows.TvShowsResponse
@@ -113,4 +115,15 @@ interface ApiService {
         @Query("api_key") api_key:String=Constants.API_KEY,
     ):Response<PersonRelatedImagesResponse>
 
+    @GET ("/3/person/{person_id}/combined_credits")
+    suspend fun getPersonRelatedMedia(
+        @Path("person_id") person_id:Int,
+        @Query("api_key") api_key:String=Constants.API_KEY,
+    ):Response<PersonRelatedMultiResponse>
+
+    @GET("/3/person/popular")
+    suspend fun getPopularPeople(
+        @Query("api_key") api_key:String= Constants.API_KEY,
+        @Query("page") page:Int
+    ):Response<PopularPeopleResponse>
 }

@@ -10,11 +10,12 @@
     <color name="off_black">#1C1C1C</color>
     <color name="off_white">#40FFFFFF</color>
     <color name="green">#135A16</color>
-    <color name="yellow">#BDAB0B</color>
+    <color name="yellow">#F4DC06</color>
     <color name="red">#CC0707</color>
     <color name="transparent">#00000000</color>
-    <color name="limed_spruce">#344955</color>
+    <color name="limed_spruce">#0B354E</color>
     <color name="cod_gray">#121212</color>
     <color name="fiord">#455A64</color>
     <color name="nepal">#8EACBB</color>
+    <color name="dark_lime">#2C3A42</color>
 </resources>
