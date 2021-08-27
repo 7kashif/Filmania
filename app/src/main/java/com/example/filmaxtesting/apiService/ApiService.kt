@@ -4,6 +4,7 @@ import com.example.filmaxtesting.Constants
 import com.example.filmaxtesting.dataClasses.credits.CreditsResponse
 import com.example.filmaxtesting.dataClasses.movieDetails.MovieDetailsResponse
 import com.example.filmaxtesting.dataClasses.movies.MoviesResponse
+import com.example.filmaxtesting.dataClasses.movies.upComingMovies.UpComingMoviesResponse
 import com.example.filmaxtesting.dataClasses.multiSearch.MultiSearchResponse
 import com.example.filmaxtesting.dataClasses.personDetails.PersonDetailsResponse
 import com.example.filmaxtesting.dataClasses.personDetails.PersonRelatedImagesResponse
@@ -126,4 +127,18 @@ interface ApiService {
         @Query("api_key") api_key:String= Constants.API_KEY,
         @Query("page") page:Int
     ):Response<PopularPeopleResponse>
+
+    @GET("/3/movie/upcoming")
+    suspend fun getUpcomingMovies(
+        @Query("api_key") api_key:String= Constants.API_KEY,
+        @Query("page") page:Int
+    ):Response<UpComingMoviesResponse>
+
+    @GET("/3/trending/{media_type}/{time_window}")
+    suspend fun getTrendingMovies(
+        @Path("media_type") media_type:String = "movie",
+        @Path("time_window") time_window:String="week",
+        @Query("api_key") api_key:String= Constants.API_KEY
+    ):Response<MoviesResponse>
+
 }

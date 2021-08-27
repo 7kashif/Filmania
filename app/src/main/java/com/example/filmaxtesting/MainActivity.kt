@@ -18,30 +18,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val moviesFragment = MoviesHostFragment()
-        val showsFragment = TvShowsHostFragment()
-        val bookMarksFragment = BookMarksFragment()
-        val peopleFragment = PopularPeopleFragment()
-
-        setCurrentFragment(moviesFragment)
-        binding.bottomNavigationView.background = null
-        binding.bottomNavigationView.menu.getItem(2).isEnabled = false
-
-        binding.bottomNavigationView.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.menuMovies -> setCurrentFragment(moviesFragment)
-                R.id.menuShows -> setCurrentFragment(showsFragment)
-                R.id.menuBookMarks -> setCurrentFragment(bookMarksFragment)
-                R.id.menuPeople -> setCurrentFragment(peopleFragment)
-            }
-            true
-        }
     }
 
-    private fun setCurrentFragment(fragment: Fragment) =
-        this.supportFragmentManager.beginTransaction().apply {
-            replace(R.id.flFragment, fragment)
-            commit()
-        }
 }

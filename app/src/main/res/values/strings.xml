@@ -2,7 +2,7 @@
     <string name="app_name">Filmania</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="popular_movies">Popular</string>
+    <string name="popular">Popular</string>
     <string name="top_rated">Top Rated</string>
     <string name="poster_of_the_movie">Poster of the movie</string>
 
@@ -29,6 +29,7 @@
     <string name="details">Details</string>
     <string name="images">Images</string>
     <string name="add_to_favorites">Add to Favorites</string>
+    <string name="added_to_favorites">Added to Favorites</string>
     <string name="cast">Cast</string>
     <string name="similar_movies">Similar Movies</string>
     <string name="loading">Loading…</string>
@@ -41,5 +42,10 @@
     <string name="famous_movies_amp_shows"><![CDATA[Famous Movies & SHows]]></string>
     <string name="popular_people_on_tmdb">Popular People on TMDB</string>
     <string name="people">People</string>
+    <string name="your_favorites_will_appear_here">Your favorites will appear here…!!!</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="see_all"><u>See all</u></string>
+    <string name="trending">Trending</string>
+    <string name="this_week">(this week)</string>
 
 </resources>

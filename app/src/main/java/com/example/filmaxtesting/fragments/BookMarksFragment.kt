@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.filmaxtesting.R
 import com.example.filmaxtesting.adapter.BookMarksAdapter
 import com.example.filmaxtesting.databinding.FragmentBookMarksBinding
+import com.example.filmaxtesting.fragments.movie.MoviesDetailDialogFragment
+import com.example.filmaxtesting.fragments.show.ShowDetailsDialogFragment
 import com.example.filmaxtesting.roomDatabase.BookMarkDatabase
 import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModel
 import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModelFactory
@@ -34,9 +36,29 @@ class BookMarksFragment : Fragment() {
 
         setUpRv()
 
+        bookMarkAdapter.setOnItemClickListener {item->
+            activity?.let {activity->
+                when(item.mediaType) {
+                    "movie" -> {
+                        val dialog = MoviesDetailDialogFragment(item.itemId)
+                        dialog.show(activity.supportFragmentManager,"MovieDetailsFragment")
+                    }
+                    "show" -> {
+                        val dialog = ShowDetailsDialogFragment(item.itemId)
+                        dialog.show(activity.supportFragmentManager,"MovieDetailsFragment")
+                    }
+                }
+            }
+        }
+
         sharedViewModel.allBookMarks.observe(viewLifecycleOwner,{
-            it?.let {
-                bookMarkAdapter.submitList(it)
+            bookMarkAdapter.submitList(it)
+            if(it.isNotEmpty()) {
+                binding.favoriteText.visibility = View.GONE
+                binding.bookMarkIcon.visibility = View.GONE
+            } else {
+                binding.bookMarkIcon.visibility = View.VISIBLE
+                binding.favoriteText.visibility = View.VISIBLE
             }
         })
 

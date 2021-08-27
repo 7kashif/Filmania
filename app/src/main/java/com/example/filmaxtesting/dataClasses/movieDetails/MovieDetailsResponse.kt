@@ -2,7 +2,7 @@ package com.example.filmaxtesting.dataClasses.movieDetails
 
 data class MovieDetailsResponse(
     val adult: Boolean,
-    val backdrop_path: String,
+    val backdrop_path: String?,
     val belongs_to_collection: Any,
     val budget: Int,
     val genres: List<Genre>,
@@ -13,7 +13,7 @@ data class MovieDetailsResponse(
     val original_title: String,
     val overview: String,
     val popularity: Double,
-    val poster_path: Any,
+    val poster_path: String?,
     val production_companies: List<ProductionCompany>,
     val production_countries: List<ProductionCountry>,
     val release_date: String,

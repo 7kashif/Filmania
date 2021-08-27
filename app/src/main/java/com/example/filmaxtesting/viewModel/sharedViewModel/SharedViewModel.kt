@@ -2,8 +2,10 @@ package com.example.filmaxtesting.viewModel.sharedViewModel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import com.example.filmaxtesting.roomDatabase.BookMark
 import com.example.filmaxtesting.roomDatabase.BookMarkDatabaseDao
+import com.google.android.material.appbar.AppBarLayout
 import kotlinx.coroutines.*
 
 
@@ -20,20 +22,9 @@ class SharedViewModel(
 
     fun createBookMark(item: BookMark) {
         uiScope.launch {
-            val bookMark=BookMark()
-            bookMark.apply {
-                title = item.title
-                voteAverage = item.voteAverage
-                language = item.language
-                releaseDate = item.releaseDate
-                overView = item.overView
-                posterPath = item.posterPath
-                backDropPath=item.backDropPath
-            }
-            insertInDatabase(bookMark)
+            insertInDatabase(item)
         }
     }
-
 
     fun onClear() {
         uiScope.launch {
@@ -41,24 +32,18 @@ class SharedViewModel(
         }
     }
 
-//    fun getBookMarkWithId(id:Long): MediatorLiveData<BookMark> {
-//        val item=MediatorLiveData<BookMark>()
-//        item.addSource(dataBase.getBookMarkById(id),item::setValue)
-//        return item
-//    }
-
-    fun getBookMarkWithTitle(title: String){
-        uiScope.launch {
-            val bookMark=getBookMarkWithTitleFromDb(title)
-            bookMark?.let {
-                deleteSingleBookMarkFromDatabase(bookMark.bookMarkId)
-            }
+    suspend fun getBookMarkByItemId(id:Int) : BookMark? {
+        return withContext(Dispatchers.IO) {
+            dataBase.getBookMarkByItemId(id)
         }
     }
 
-    private suspend fun getBookMarkWithTitleFromDb(title:String):BookMark? {
-        return withContext(Dispatchers.IO) {
-            dataBase.getBookMarkByTitle(title)
+    fun deleteSingleTask(id:Int) {
+        uiScope.launch {
+            val bookMark=getBookMarkByItemId(id)
+            if (bookMark != null) {
+                deleteSingleBookMarkFromDatabase(bookMark.bookMarkId)
+            }
         }
     }
 

@@ -9,10 +9,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.filmaxtesting.Constants
+import com.example.filmaxtesting.R
 import com.example.filmaxtesting.dataClasses.multiSearch.MultiSearchResults
 import com.example.filmaxtesting.databinding.ListItemBinding
 
-class SearchMoviesAdapter: PagingDataAdapter<MultiSearchResults, SearchMoviesAdapter.ImageViewHolder>(diffCallBack) {
+class SearchAdapter: PagingDataAdapter<MultiSearchResults, SearchAdapter.ImageViewHolder>(diffCallBack) {
 
     inner class ImageViewHolder(val binding:ListItemBinding):RecyclerView.ViewHolder(binding.root)
 
@@ -43,11 +44,33 @@ class SearchMoviesAdapter: PagingDataAdapter<MultiSearchResults, SearchMoviesAda
 
         holder.binding.apply {
             holder.itemView.apply {
-                listItemTitle.text=currentItem.title
-                val posterPath= Constants.BASE_IMAGE_PATH + currentItem.poster_path
-                Glide.with(this).load(posterPath).into(listItemPoster)
-
                 voteCount.visibility= View.GONE
+
+
+                when (currentItem.media_type) {
+                    "movie" -> {
+                        listItemTitle.text = currentItem.title
+                        if (currentItem.poster_path != null )
+                            Glide.with(this).load(Constants.BASE_IMAGE_PATH + currentItem.poster_path).into(listItemPoster)
+                        else
+                            Glide.with(this).load(R.drawable.no_image).into(listItemPoster)
+                    }
+                    "tv" -> {
+                        listItemTitle.text = currentItem.name
+                        if (currentItem.poster_path != null )
+                            Glide.with(this).load(Constants.BASE_IMAGE_PATH + currentItem.poster_path).into(listItemPoster)
+                        else
+                            Glide.with(this).load(R.drawable.no_image).into(listItemPoster)
+                    }
+                    "person" -> {
+                        listItemTitle.text = currentItem.name
+                        if (currentItem.profile_path != null )
+                            Glide.with(this).load(Constants.BASE_IMAGE_PATH + currentItem.profile_path).into(listItemPoster)
+                        else
+                            Glide.with(this).load(R.drawable.no_image).into(listItemPoster)
+                    }
+                }
+
 
                 root.setOnClickListener {
                     onItemClickListener?.let {

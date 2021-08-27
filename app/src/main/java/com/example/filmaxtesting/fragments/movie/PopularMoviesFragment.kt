@@ -17,6 +17,7 @@ import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModel
 import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModelFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 
@@ -66,11 +67,10 @@ class PopularMoviesFragment : Fragment() {
 
     private fun loadData() {
         lifecycleScope.launch{
-            pagingViewModel.popularMoviesList.flowOn(Dispatchers.Default).collect {
+            pagingViewModel.getMovies(binding)
+            pagingViewModel.moviesList?.flowOn(Dispatchers.Default)?.collect {
                 moviesAdapter.submitData(it)
-                binding.swipeRefreshLayout.isRefreshing = false
             }
         }
     }
-
 }

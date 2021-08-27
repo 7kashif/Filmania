@@ -14,12 +14,12 @@ data class MultiSearchResults(
     val original_name: String,
     val original_title: String,
     val overview: String,
-    val popularity: Int,
+    val popularity: Double,
     val poster_path: String?,
     val profile_path: String?,
     val release_date: String,
     val title: String,
     val video: Boolean,
-    val vote_average: Int,
+    val vote_average: Double,
     val vote_count: Int
 )

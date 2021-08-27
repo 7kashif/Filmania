@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/drawable/ic_more_vert.xml" value="0.21770833333333334" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout-v26/fragment_search.xml" value="0.2015625" />
         <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/activity_main.xml" value="0.2015625" />
         <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/cast_list_item.xml" value="0.19814814814814816" />
         <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/expanded_view.xml" value="0.19814814814814816" />
@@ -11,9 +12,11 @@
         <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_dialog_movie_detail.xml" value="0.19814814814814816" />
         <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_dialog_person_detail.xml" value="0.19814814814814816" />
         <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_dialog_popular_people.xml" value="0.2015625" />
-        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_movies_host.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_main.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_movies_host.xml" value="0.22" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_popular_movies.xml" value="0.2015625" />
         <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_popular_people.xml" value="0.2015625" />
-        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_search.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_search.xml" value="0.2" />
         <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_tv_shows_host.xml" value="0.2015625" />
         <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/list_item.xml" value="0.19814814814814816" />
         <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/popular_people_list_item.xml" value="0.2015625" />

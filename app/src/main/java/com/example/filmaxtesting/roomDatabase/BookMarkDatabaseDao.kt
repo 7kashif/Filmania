@@ -24,11 +24,8 @@ interface BookMarkDatabaseDao {
     @Query("SELECT * FROM bookmark ORDER BY bookMarkId DESC LIMIT 1")
     fun getLastBookMark():BookMark?
 
-    @Query("SELECT * FROM bookmark WHERE bookMarkId=:id")
-    fun getBookMarkById(id:Long):LiveData<BookMark>
-
-    @Query("SELECT * FROM bookmark WHERE title=:title")
-    fun getBookMarkByTitle(title:String):BookMark?
+    @Query("SELECT * FROM bookmark WHERE itemId=:id")
+    fun getBookMarkByItemId(id:Int):BookMark?
 
     @Query("DELETE  FROM bookmark WHERE bookMarkId=:key")
     fun deleteSingleBookMark(key:Long)

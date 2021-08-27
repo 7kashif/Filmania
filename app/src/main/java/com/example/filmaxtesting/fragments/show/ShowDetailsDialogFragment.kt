@@ -14,12 +14,17 @@ import com.example.filmaxtesting.adapter.misc.CastAdapter
 import com.example.filmaxtesting.adapter.misc.GenreAdapter
 import com.example.filmaxtesting.adapter.misc.PostersAdapter
 import com.example.filmaxtesting.adapter.shows.SimilarShowsAdapter
+import com.example.filmaxtesting.dataClasses.movieDetails.MovieDetailsResponse
 import com.example.filmaxtesting.dataClasses.showsDetails.ShowDetailsResponse
 import com.example.filmaxtesting.databinding.FragmentDialogShowDetailsBinding
 import com.example.filmaxtesting.fragments.people.PersonDetailsDialogFragment
 import com.example.filmaxtesting.loadBackDrop
 import com.example.filmaxtesting.loadPoster
+import com.example.filmaxtesting.roomDatabase.BookMark
+import com.example.filmaxtesting.roomDatabase.BookMarkDatabase
 import com.example.filmaxtesting.setReadMoreTextView
+import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModel
+import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModelFactory
 import com.example.filmaxtesting.viewModel.showDetails.ShowDetailsViewModel
 import com.example.filmaxtesting.viewModel.showDetails.ShowDetailsViewModelFactory
 import kotlinx.coroutines.launch
@@ -31,7 +36,7 @@ class ShowDetailsDialogFragment(private val showId: Int) : DialogFragment() {
     private lateinit var viewModel: ShowDetailsViewModel
     private lateinit var castAdapter: CastAdapter
     private lateinit var similarShowsAdapter: SimilarShowsAdapter
-
+    private lateinit var sharedViewModel: SharedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,6 +44,15 @@ class ShowDetailsDialogFragment(private val showId: Int) : DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDialogShowDetailsBinding.inflate(inflater)
+        val application = requireNotNull(this.activity).application
+        val dataBase = BookMarkDatabase.getInstance(application).bookMarkDatabaseDao
+
+
+        sharedViewModel = ViewModelProvider(
+            this, SharedViewModelFactory(dataBase, application)
+        )
+            .get(SharedViewModel::class.java)
+
         viewModel = ViewModelProvider(
             this,
             ShowDetailsViewModelFactory(showId)
@@ -121,19 +135,47 @@ class ShowDetailsDialogFragment(private val showId: Int) : DialogFragment() {
             else
                 runtime.text = getString(R.string.episodeRunTime, 0)
 
+            saveBookMark(item)
             setReadMoreTextView(activity,overView,item.overview)
-
             genreAdapter.submitList(item.genres)
-
             loadImagesInViews(item)
         }
     }
-
 
     private fun loadImagesInViews(item: ShowDetailsResponse) {
         activity?.let {
             loadPoster(it,item.poster_path,binding.poster)
             loadBackDrop(it,item.backdrop_path,binding.backDrop)
+        }
+    }
+
+    private fun saveBookMark(item : ShowDetailsResponse) {
+        binding.apply {
+            lifecycleScope.launchWhenCreated {
+                if (sharedViewModel.getBookMarkByItemId(item.id) != null) {
+                    bookMarkCB.isChecked = true
+                    favoriteTv.text=getString(R.string.added_to_favorites)
+                }
+            }
+            bookMarkCB.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (buttonView.isPressed) {
+                    if (isChecked) {
+                        val bookMark = BookMark()
+                        bookMark.apply {
+                            itemId = item.id
+                            title = item.name
+                            posterPath = item.poster_path
+                            voteAverage = item.vote_average
+                            mediaType = "show"
+                        }
+                        sharedViewModel.createBookMark(bookMark)
+                        favoriteTv.text=getString(R.string.added_to_favorites)
+                    } else{
+                        sharedViewModel.deleteSingleTask(item.id)
+                        favoriteTv.text=getString(R.string.add_to_favorites)
+                    }
+                }
+            }
         }
     }
 

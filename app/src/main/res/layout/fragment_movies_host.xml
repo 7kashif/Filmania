@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/limed_spruce"
+    android:scrollbars="none"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/limed_spruce"
+        android:layout_height="wrap_content"
         tools:context=".fragments.movie.MoviesHostFragment">
 
         <TextView
@@ -14,6 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/movies"
+            android:textStyle="bold"
             android:textColor="@color/white"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
@@ -22,24 +26,195 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
+        <TextView
+            android:id="@+id/upComingTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/upcoming"
+            android:textColor="@color/white"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="25dp"
+            android:textSize="20sp"
+            android:background="@color/transparent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/seeAllUpComing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/see_all"
+            android:textColor="@color/darkturquoise"
+            android:textStyle="italic"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="5dp"
+            android:textSize="18sp"
+            android:clickable="true"
+            app:layout_constraintBottom_toTopOf="@id/upcomingLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:focusable="true" />
+
+        <View
+            android:id="@+id/upcomingLine"
+            android:background="@color/nepal"
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintTop_toBottomOf="@id/upComingTv"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/upcomingRv"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:layout_marginTop="10dp"
-            app:tabTextColor="@color/white"
-            app:tabIndicatorColor="@color/yellow"
-            app:tabSelectedTextColor="@color/yellow"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title" />
+            app:layout_constraintTop_toBottomOf="@id/upcomingLine"/>
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager"
+        <TextView
+            android:id="@+id/trendingTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/trending"
+            android:textColor="@color/white"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="25dp"
+            android:textSize="20sp"
+            android:background="@color/transparent"
+            app:layout_constraintTop_toBottomOf="@id/upcomingRv"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/this_week"
+            android:textColor="@color/nepal"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="25dp"
+            android:textSize="15sp"
+            android:background="@color/transparent"
+            app:layout_constraintStart_toEndOf="@id/trendingTv"
+            app:layout_constraintBottom_toBottomOf="@id/trendingTv"/>
+
+
+        <TextView
+            android:id="@+id/seeAllTrending"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/see_all"
+            android:textColor="@color/darkturquoise"
+            android:textStyle="italic"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="5dp"
+            android:textSize="18sp"
+            android:clickable="true"
+            app:layout_constraintBottom_toTopOf="@id/trendingLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:focusable="true" />
+
+        <View
+            android:id="@+id/trendingLine"
+            android:background="@color/nepal"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/tabLayout"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:layout_height="1.5dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintTop_toBottomOf="@id/trendingTv"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/trendingRv"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/trendingLine"/>
+
+        <TextView
+            android:id="@+id/popularTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/popular"
+            android:textColor="@color/white"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="25dp"
+            android:textSize="20sp"
+            android:background="@color/transparent"
+            app:layout_constraintTop_toBottomOf="@id/trendingRv"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/seeAllPopular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/see_all"
+            android:textColor="@color/darkturquoise"
+            android:textStyle="italic"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="5dp"
+            android:textSize="18sp"
+            android:clickable="true"
+            app:layout_constraintBottom_toTopOf="@id/popularLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:focusable="true" />
+
+        <View
+            android:id="@+id/popularLine"
+            android:background="@color/nepal"
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintTop_toBottomOf="@id/popularTv"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/popularRv"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/popularLine"/>
+
+        <TextView
+            android:id="@+id/topRatedTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/top_rated"
+            android:textColor="@color/white"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="25dp"
+            android:textSize="20sp"
+            android:background="@color/transparent"
+            app:layout_constraintTop_toBottomOf="@id/popularRv"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/seeAllTopRated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/see_all"
+            android:textColor="@color/darkturquoise"
+            android:textStyle="italic"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="5dp"
+            android:textSize="18sp"
+            android:clickable="true"
+            app:layout_constraintBottom_toTopOf="@id/topRatedLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:focusable="true" />
+
+        <View
+            android:id="@+id/topRatedLine"
+            android:background="@color/nepal"
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintTop_toBottomOf="@id/topRatedTv"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/topRatedRv"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/topRatedLine"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</ScrollView>
