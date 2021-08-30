@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.filmaxtesting.adapter.search.SearchAdapter
@@ -17,6 +16,7 @@ import com.example.filmaxtesting.fragments.people.PersonDetailsDialogFragment
 import com.example.filmaxtesting.fragments.show.ShowDetailsDialogFragment
 import com.example.filmaxtesting.getQueryTextChangeStateFlow
 import com.example.filmaxtesting.viewModel.SearchViewModel
+import dagger.internal.SetFactory.empty
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
@@ -37,13 +37,6 @@ class SearchFragment: Fragment() {
         loadData()
         setUpDebounce()
         setUpAdapterClickListener()
-
-        binding.closeButton.setOnClickListener {
-            lifecycleScope.launch {
-                searchAdapter.submitData(PagingData.empty())
-            }
-            this.findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToMainFragment())
-        }
 
         return binding.root
     }
@@ -119,6 +112,13 @@ class SearchFragment: Fragment() {
                     viewModel.search(result,binding)
                     loadData()
                 }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        lifecycleScope.launch {
+            searchAdapter.submitData(PagingData.empty())
         }
     }
 }

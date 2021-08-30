@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.widget.SearchView
 import coil.load
 import coil.transform.BlurTransformation
 import com.bumptech.glide.Glide
@@ -29,7 +28,6 @@ object Constants {
     const val BASE_IMAGE_PATH = "https://image.tmdb.org/t/p/w500/"
 
 }
-
 
 object ViewDialog {
     fun expandImageDialog(activity: Activity?, path: String, inflater: LayoutInflater) {
@@ -92,9 +90,9 @@ fun loadBackDrop(activity: Activity,backDropPath:String?, view:ImageView) {
     }
 }
 
-fun SearchView.getQueryTextChangeStateFlow(): StateFlow<String> {
+fun androidx.appcompat.widget.SearchView.getQueryTextChangeStateFlow(): StateFlow<String> {
     val query = MutableStateFlow("")
-    setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+    setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String?): Boolean {
             return true
         }

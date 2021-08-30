@@ -13,6 +13,7 @@ import com.example.filmaxtesting.dataClasses.popularPeople.PopularPeopleResponse
 import com.example.filmaxtesting.dataClasses.relatedImages.RelatedImagesResponse
 import com.example.filmaxtesting.dataClasses.showsDetails.ShowDetailsResponse
 import com.example.filmaxtesting.dataClasses.tvShows.TvShowsResponse
+import com.example.filmaxtesting.dataClasses.video.VideosResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -52,37 +53,37 @@ interface ApiService {
     @GET("/3/movie/{movie_id}")
     suspend fun getMovieDetails(
         @Path("movie_id") movie_id:Int,
-        @Query("api_key") api_key:String=Constants.API_KEY,
+        @Query("api_key") api_key:String=Constants.API_KEY
     ):Response<MovieDetailsResponse>
 
     @GET("/3/movie/{movieId}/images")
     suspend fun getMovieRelatedImages(
         @Path("movieId") movieId:Int,
-        @Query("api_key") api_key:String=Constants.API_KEY,
+        @Query("api_key") api_key:String=Constants.API_KEY
     ):Response<RelatedImagesResponse>
 
     @GET("/3/movie/{movieId}/credits")
     suspend fun getMovieCredits(
         @Path("movieId") movieId:Int,
-        @Query("api_key") api_key:String=Constants.API_KEY,
+        @Query("api_key") api_key:String=Constants.API_KEY
     ):Response<CreditsResponse>
 
     @GET("/3/movie/{movieId}/similar")
     suspend fun getSimilarMovies(
         @Path("movieId") movieId:Int,
-        @Query("api_key") api_key:String=Constants.API_KEY,
+        @Query("api_key") api_key:String=Constants.API_KEY
     ):Response<MoviesResponse>
 
     @GET("/3/tv/{showId}")
     suspend fun getShowDetails(
         @Path("showId") showId:Int,
-        @Query("api_key") api_key:String=Constants.API_KEY,
+        @Query("api_key") api_key:String=Constants.API_KEY
     ):Response<ShowDetailsResponse>
 
     @GET("/3/tv/{showId}/images")
     suspend fun getShowRelatedImages(
         @Path("showId") showId:Int,
-        @Query("api_key") api_key:String=Constants.API_KEY,
+        @Query("api_key") api_key:String=Constants.API_KEY
     ):Response<RelatedImagesResponse>
 
     @GET("/3/tv/{showId}/credits")
@@ -138,7 +139,28 @@ interface ApiService {
     suspend fun getTrendingMovies(
         @Path("media_type") media_type:String = "movie",
         @Path("time_window") time_window:String="week",
-        @Query("api_key") api_key:String= Constants.API_KEY
+        @Query("api_key") api_key:String= Constants.API_KEY,
+        @Query("page") page:Int =1
     ):Response<MoviesResponse>
+
+    @GET("/3/trending/{media_type}/{time_window}")
+    suspend fun getTrendingShows(
+        @Path("media_type") media_type:String = "tv",
+        @Path("time_window") time_window:String="week",
+        @Query("api_key") api_key:String= Constants.API_KEY,
+        @Query("page") page:Int =1
+    ):Response<TvShowsResponse>
+
+    @GET("/3/movie/{movie_id}/videos")
+    suspend fun getMovieVideos(
+        @Path("movie_id") movie_id:Int,
+        @Query("api_key") api_key:String=Constants.API_KEY
+    ):Response<VideosResponse>
+
+    @GET("/3/tv/{tv_id}/videos")
+    suspend fun getShowsVideos(
+        @Path("tv_id") tv_id:Int,
+        @Query("api_key") api_key:String=Constants.API_KEY
+    ):Response<VideosResponse>
 
 }

@@ -1,38 +1,53 @@
 package com.example.filmaxtesting.fragments.movie
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
+import androidx.paging.LoadStates
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.filmaxtesting.R
 import com.example.filmaxtesting.adapter.movie.MoviesAdapter
-import com.example.filmaxtesting.databinding.FragmentPopularMoviesBinding
-import com.example.filmaxtesting.roomDatabase.BookMarkDatabase
-import com.example.filmaxtesting.viewModel.movie.PopularMoviesViewModel
-import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModel
-import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModelFactory
+import com.example.filmaxtesting.databinding.FragmentPagingBinding
+import com.example.filmaxtesting.viewModel.movie.UpComingMoviesViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-class PopularMoviesFragment : Fragment() {
-    private lateinit var binding: FragmentPopularMoviesBinding
+class UpComingMoviesFragment : Fragment() {
+    private lateinit var binding: FragmentPagingBinding
     private lateinit var moviesAdapter: MoviesAdapter
-    private val pagingViewModel: PopularMoviesViewModel by activityViewModels()
+    private val pagingViewModel: UpComingMoviesViewModel by activityViewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentPopularMoviesBinding.inflate(inflater)
+        binding = FragmentPagingBinding.inflate(inflater)
+        binding.title.text = getString(R.string.upcoming)
+        pagingViewModel.getUpcomingMovies()
 
         setUpRv()
         loadData()
+
+
+        lifecycleScope.launch {
+            moviesAdapter.loadStateFlow.map {
+                it.refresh
+            }.distinctUntilChanged()
+                .collect {
+                    if (it is LoadState.Loading) {
+                        binding.linearLayout.visibility = View.VISIBLE
+                    }  else
+                        binding.linearLayout.visibility = View.GONE
+                }
+        }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             loadData()
@@ -44,6 +59,7 @@ class PopularMoviesFragment : Fragment() {
                 dialog.show(it.supportFragmentManager, "Detail Dialog")
             }
         }
+
 
         return binding.root
     }
@@ -58,12 +74,16 @@ class PopularMoviesFragment : Fragment() {
     }
 
     private fun loadData() {
-        lifecycleScope.launch {
-            pagingViewModel.getMovies(binding)
-            pagingViewModel.moviesList?.flowOn(Dispatchers.Default)?.collect { pagingData ->
+        lifecycleScope.launchWhenCreated {
+            pagingViewModel.moviesList?.flowOn(Dispatchers.IO)?.collect { pagingData ->
                 moviesAdapter.submitData(pagingData)
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        pagingViewModel.viewModelJOb.cancel()
     }
 
 }

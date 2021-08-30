@@ -35,7 +35,8 @@ class PopularMoviesPagingSource(
             LoadResult.Page(
                 data = responseData,
                 prevKey = if (currentPage == 1) null else -1,
-                nextKey = currentPage.plus(1)
+                nextKey = if (currentPage.plus(1) == response.body()!!.total_pages)
+                    null else currentPage.plus(1)
             )
 
         } catch (e: Exception) {

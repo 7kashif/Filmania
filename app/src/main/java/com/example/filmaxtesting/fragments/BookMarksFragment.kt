@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.filmaxtesting.R
-import com.example.filmaxtesting.adapter.BookMarksAdapter
+import com.example.filmaxtesting.adapter.misc.BookMarksAdapter
 import com.example.filmaxtesting.databinding.FragmentBookMarksBinding
 import com.example.filmaxtesting.fragments.movie.MoviesDetailDialogFragment
 import com.example.filmaxtesting.fragments.show.ShowDetailsDialogFragment
@@ -20,7 +20,7 @@ import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModelFactor
 
 class BookMarksFragment : Fragment() {
     private lateinit var binding:FragmentBookMarksBinding
-    private lateinit var  bookMarkAdapter:BookMarksAdapter
+    private lateinit var  bookMarkAdapter: BookMarksAdapter
     private lateinit var sharedViewModel:SharedViewModel
 
     override fun onCreateView(

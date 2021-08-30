@@ -1,4 +1,4 @@
-package com.example.filmaxtesting.adapter
+package com.example.filmaxtesting.adapter.misc
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,7 +12,7 @@ import com.example.filmaxtesting.R
 import com.example.filmaxtesting.databinding.ListItemBinding
 import com.example.filmaxtesting.roomDatabase.BookMark
 
-class BookMarksAdapter:ListAdapter<BookMark,BookMarksAdapter.ImageViewHolder>(diffCallBack) {
+class BookMarksAdapter:ListAdapter<BookMark, BookMarksAdapter.ImageViewHolder>(diffCallBack) {
 
     inner class ImageViewHolder(val binding:ListItemBinding):RecyclerView.ViewHolder(binding.root)
 
@@ -49,7 +49,7 @@ class BookMarksAdapter:ListAdapter<BookMark,BookMarksAdapter.ImageViewHolder>(di
     }
 
     companion object{
-        val diffCallBack=object : DiffUtil.ItemCallback<BookMark>() {
+        private val diffCallBack=object : DiffUtil.ItemCallback<BookMark>() {
             override fun areItemsTheSame(oldItem: BookMark, newItem: BookMark): Boolean {
                 return oldItem.bookMarkId==newItem.bookMarkId
             }

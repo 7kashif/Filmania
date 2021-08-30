@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.filmaxtesting.adapter.shows.TvShowsAdapter
 import com.example.filmaxtesting.databinding.FragmentPopularShowsBinding
 import com.example.filmaxtesting.roomDatabase.BookMarkDatabase
-import com.example.filmaxtesting.viewModel.PopularShowsViewModel
+import com.example.filmaxtesting.viewModel.show.PopularShowsViewModel
 import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModel
 import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModelFactory
 import kotlinx.coroutines.Dispatchers

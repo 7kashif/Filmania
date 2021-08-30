@@ -30,4 +30,5 @@ class TvShowsHostFragment : Fragment() {
 
         return binding.root
     }
+
 }

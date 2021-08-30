@@ -12,6 +12,7 @@ import com.example.filmaxtesting.R
 import com.example.filmaxtesting.dataClasses.tvShows.TvShows
 import com.example.filmaxtesting.databinding.ListItemBinding
 
+
 class TvShowsAdapter: PagingDataAdapter<TvShows, TvShowsAdapter.ImageViewHolder>(diffCallBack) {
 
     inner class ImageViewHolder(val binding: ListItemBinding): RecyclerView.ViewHolder(binding.root)

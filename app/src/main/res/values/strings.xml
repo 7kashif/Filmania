@@ -46,6 +46,13 @@
     <string name="upcoming">Upcoming</string>
     <string name="see_all"><u>See all</u></string>
     <string name="trending">Trending</string>
+    <string name="trending_movies">Trending Movies</string>
+    <string name="trending_shows">Trending Shows</string>
     <string name="this_week">(this week)</string>
+    <string name="popular_movies">Popular Movies</string>
+    <string name="top_rated_movies">Top Rated Movies</string>
+    <string name="home">Home</string>
+    <string name="shows">Shows</string>
+    <string name="no_videos">Sorry!!! \n We currently don\'t have any videos.</string>
 
 </resources>

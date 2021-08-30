@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.filmaxtesting.adapter.movie.MoviesAdapter
 import com.example.filmaxtesting.databinding.FragmentTopRatedMoviesBinding
 import com.example.filmaxtesting.roomDatabase.BookMarkDatabase
-import com.example.filmaxtesting.viewModel.TopRatedMoviesViewModel
+import com.example.filmaxtesting.viewModel.movie.TopRatedMoviesViewModel
 import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModel
 import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModelFactory
 import kotlinx.coroutines.Dispatchers
@@ -67,11 +67,16 @@ class TopRatedMoviesFragment : Fragment() {
 
     private fun loadData() {
         lifecycleScope.launch{
-            pagingViewModel.topRatedMoviesList.flowOn(Dispatchers.Default).collect {
+            pagingViewModel.getMovies(binding)
+            pagingViewModel.moviesList?.flowOn(Dispatchers.Default)?.collect {
                 moviesAdapter.submitData(it)
-                binding.swipeRefreshLayout.isRefreshing = false
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        pagingViewModel.viewModelJob.cancel()
     }
 
 }
