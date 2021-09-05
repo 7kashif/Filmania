@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.filmaxtesting.fragments.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_upComingMoviesFragment"
+            app:destination="@id/upComingMoviesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_trendingMoviesFragment"
+            app:destination="@id/trendingMoviesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_trendingShowsFragment"
+            app:destination="@id/trendingShowsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_popularMoviesFragment"
+            app:destination="@id/popularMoviesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_popularShowsFragment"
+            app:destination="@id/popularShowsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_topRatedMoviesFragment"
+            app:destination="@id/topRatedMoviesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_topRatedShowsFragment"
+            app:destination="@id/topRatedShowsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_popularPeopleFragment3"
+            app:destination="@id/popularPeopleFragment3" />
+        <action
+            android:id="@+id/action_homeFragment_to_bookMarksFragment"
+            app:destination="@id/bookMarksFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/upComingMoviesFragment"
+        android:name="com.example.filmaxtesting.fragments.movie.UpComingMoviesFragment"
+        android:label="UpComingMoviesFragment" >
+        <action
+            android:id="@+id/action_upComingMoviesFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/trendingMoviesFragment"
+        android:name="com.example.filmaxtesting.fragments.movie.TrendingMoviesFragment"
+        android:label="TrendingMoviesFragment" >
+        <action
+            android:id="@+id/action_trendingMoviesFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/trendingShowsFragment"
+        android:name="com.example.filmaxtesting.fragments.show.TrendingShowsFragment"
+        android:label="TrendingShowsFragment" >
+        <action
+            android:id="@+id/action_trendingShowsFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/popularMoviesFragment"
+        android:name="com.example.filmaxtesting.fragments.movie.PopularMoviesFragment"
+        android:label="fragment_popular_movies"
+        tools:layout="@layout/fragment_popular_movies" >
+        <action
+            android:id="@+id/action_popularMoviesFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/popularShowsFragment"
+        android:name="com.example.filmaxtesting.fragments.show.PopularShowsFragment"
+        android:label="fragment_popular_shows"
+        tools:layout="@layout/fragment_popular_shows" >
+        <action
+            android:id="@+id/action_popularShowsFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/topRatedMoviesFragment"
+        android:name="com.example.filmaxtesting.fragments.movie.TopRatedMoviesFragment"
+        android:label="fragment_top_rated_movies"
+        tools:layout="@layout/fragment_top_rated_movies" >
+        <action
+            android:id="@+id/action_topRatedMoviesFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/topRatedShowsFragment"
+        android:name="com.example.filmaxtesting.fragments.show.TopRatedShowsFragment"
+        android:label="fragment_top_rated_shows"
+        tools:layout="@layout/fragment_top_rated_shows" >
+        <action
+            android:id="@+id/action_topRatedShowsFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/popularPeopleFragment3"
+        android:name="com.example.filmaxtesting.fragments.people.PopularPeopleFragment"
+        android:label="PopularPeopleFragment" >
+        <action
+            android:id="@+id/action_popularPeopleFragment3_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookMarksFragment"
+        android:name="com.example.filmaxtesting.fragments.BookMarksFragment"
+        android:label="fragment_book_marks"
+        tools:layout="@layout/fragment_book_marks" >
+        <action
+            android:id="@+id/action_bookMarksFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.filmaxtesting.fragments.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+</navigation>

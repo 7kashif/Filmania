@@ -3,7 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/activity_main.xml" value="0.2015625" />
         <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/cast_list_item.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_book_marks.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_dialog_movie_detail.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_dialog_show_details.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_search.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_video.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/try_layout.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/video_list_item.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/videos_view.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2015625" />
       </map>
     </option>
   </component>

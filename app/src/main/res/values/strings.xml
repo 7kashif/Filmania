@@ -9,7 +9,7 @@
     <!--    dynamic strings to set the attributes in details fragments-->
 
     <string name="director"><b>Director:</b> %1$s</string>
-    <string name="writer"><b>Writer:</b>%1$s</string>
+    <string name="screenplay"><b>Screenplay:</b>%1$s</string>
     <string name="set_rating"><b>%1$s</b>/10</string>
     <string name="movieRuntime"> %1$sh %2$sm </string>
 
@@ -55,4 +55,16 @@
     <string name="shows">Shows</string>
     <string name="no_videos">Sorry!!! \n We currently don\'t have any videos.</string>
 
+    <string name="get_thumbnail">https://i.ytimg.com/vi/%1$s/0.jpg</string>
+    <string name="videos">Videos</string>
+
+    <string name="official">Official</string>
+    <string name="unofficial">Unofficial</string>
+
+    <string name="youtube_api">AIzaSyA6I_NOM_IfxzSb1O4y1zKtQyWLi2MmvVw</string>
+    <string name="youtueb_url">https://www.youtube.com/watch?v=%1$s</string>
+    <string name="loading_video">Loading Video…</string>
+    <string name="select_an_app">Select an app</string>
+
+    <string name="set_text">%1$s</string>
 </resources>

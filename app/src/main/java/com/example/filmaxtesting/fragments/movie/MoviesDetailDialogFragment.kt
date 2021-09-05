@@ -1,5 +1,8 @@
 package com.example.filmaxtesting.fragments.movie
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,26 +12,25 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import coil.load
-import coil.transform.BlurTransformation
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.example.filmaxtesting.*
+import com.example.filmaxtesting.R
 import com.example.filmaxtesting.adapter.misc.CastAdapter
 import com.example.filmaxtesting.adapter.misc.GenreAdapter
 import com.example.filmaxtesting.adapter.misc.PostersAdapter
+import com.example.filmaxtesting.adapter.misc.VideosAdapter
 import com.example.filmaxtesting.adapter.movie.SimilarMoviesAdapter
 import com.example.filmaxtesting.dataClasses.credits.CreditsResponse
 import com.example.filmaxtesting.dataClasses.movieDetails.MovieDetailsResponse
 import com.example.filmaxtesting.databinding.FragmentDialogMovieDetailBinding
 import com.example.filmaxtesting.fragments.people.PersonDetailsDialogFragment
+import com.example.filmaxtesting.loadBackDrop
+import com.example.filmaxtesting.loadPoster
 import com.example.filmaxtesting.roomDatabase.BookMark
 import com.example.filmaxtesting.roomDatabase.BookMarkDatabase
+import com.example.filmaxtesting.setReadMoreTextView
 import com.example.filmaxtesting.viewModel.movieDetails.MovieDetailsViewModel
 import com.example.filmaxtesting.viewModel.movieDetails.MovieDetailsViewModelFactory
 import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModel
 import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModelFactory
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MoviesDetailDialogFragment(private val movieId: Int) : DialogFragment() {
@@ -39,6 +41,7 @@ class MoviesDetailDialogFragment(private val movieId: Int) : DialogFragment() {
     private lateinit var posterAdapter: PostersAdapter
     private lateinit var castAdapter: CastAdapter
     private lateinit var similarMoviesAdapter: SimilarMoviesAdapter
+    private val videosAdapter = VideosAdapter()
 
 
     override fun onCreateView(
@@ -60,11 +63,27 @@ class MoviesDetailDialogFragment(private val movieId: Int) : DialogFragment() {
             .get(SharedViewModel::class.java)
 
         setupGenreRv()
+        setUpVideosRv()
         setupPostersRv()
         setUpCastRv()
         setUpSimilarMoviesRv()
         loadData()
 
+        videosAdapter.setOnItemClickListener { item ->
+            activity?.let {
+                val intent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("http://www.youtube.com/watch?v=${item.key}")
+                )
+                val title = getString(R.string.select_an_app)
+                val chooser = Intent.createChooser(intent, title)
+                try {
+                    startActivity(chooser)
+                } catch (e: ActivityNotFoundException) {
+                    Toast.makeText(it, "No related app found.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
 
         similarMoviesAdapter.setOnItemClickListener { item ->
             activity?.let {
@@ -120,9 +139,17 @@ class MoviesDetailDialogFragment(private val movieId: Int) : DialogFragment() {
         }
     }
 
+    private fun setUpVideosRv() {
+        binding.videosRv.apply {
+            adapter = videosAdapter
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            setHasFixedSize(true)
+        }
+    }
+
     private fun setUpViews(item: MovieDetailsResponse) {
         binding.apply {
-            title.text = item.title
+            title.text=item.title
             releaseDate.text = item.release_date
             status.text = item.status
             val hrs: Int = item.runtime / 60
@@ -133,22 +160,20 @@ class MoviesDetailDialogFragment(private val movieId: Int) : DialogFragment() {
             setReadMoreTextView(activity, overView, item.overview)
 
             lifecycleScope.launchWhenCreated {
-               if (sharedViewModel.getBookMarkByItemId(item.id) != null) {
-                   binding.bookMarkCB.isChecked = true
-                   favoriteTv.text=getString(R.string.added_to_favorites)
-               }
+                if (sharedViewModel.getBookMarkByItemId(item.id) != null) {
+                    binding.bookMarkCB.isChecked = true
+                    favoriteTv.text = getString(R.string.added_to_favorites)
+                }
             }
-
             saveBookMark(item)
-
             activity?.let {
-                loadPoster(it,item.poster_path,poster)
-                loadBackDrop(it,item.backdrop_path,backDrop)
+                loadPoster(it, item.poster_path, poster)
+                loadBackDrop(it, item.backdrop_path, backDrop)
             }
         }
     }
 
-    private fun saveBookMark(item : MovieDetailsResponse) {
+    private fun saveBookMark(item: MovieDetailsResponse) {
         binding.apply {
             bookMarkCB.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (buttonView.isPressed) {
@@ -162,10 +187,10 @@ class MoviesDetailDialogFragment(private val movieId: Int) : DialogFragment() {
                             mediaType = "movie"
                         }
                         sharedViewModel.createBookMark(bookMark)
-                        favoriteTv.text=getString(R.string.added_to_favorites)
-                    } else{
+                        favoriteTv.text = getString(R.string.added_to_favorites)
+                    } else {
                         sharedViewModel.deleteSingleTask(item.id)
-                        favoriteTv.text=getString(R.string.add_to_favorites)
+                        favoriteTv.text = getString(R.string.add_to_favorites)
                     }
                 }
             }
@@ -176,8 +201,8 @@ class MoviesDetailDialogFragment(private val movieId: Int) : DialogFragment() {
         castAdapter.submitList(item.cast)
 
         val crew = item.crew
-        var directorName = "-"
-        var screenPlay = "-"
+        var directorName = " N/A"
+        var screenPlay = " N/A"
         crew.forEach {
             if (it.job == "Director")
                 directorName = it.name
@@ -187,7 +212,7 @@ class MoviesDetailDialogFragment(private val movieId: Int) : DialogFragment() {
 
         binding.apply {
             director.text = getString(R.string.director, directorName)
-            writer.text = getString(R.string.writer, screenPlay)
+            writer.text = getString(R.string.screenplay, screenPlay)
         }
     }
 
@@ -195,7 +220,6 @@ class MoviesDetailDialogFragment(private val movieId: Int) : DialogFragment() {
         lifecycleScope.launch {
             viewModel.movieDetail.observe(viewLifecycleOwner, { response ->
                 if (response.isSuccessful && response.body() != null) {
-                    viewModel.getPosters(movieId)
                     genreAdapter.submitList(response.body()!!.genres)
                     setUpViews(response.body()!!)
                 } else {
@@ -205,8 +229,17 @@ class MoviesDetailDialogFragment(private val movieId: Int) : DialogFragment() {
 
             viewModel.posters.observe(viewLifecycleOwner, { response ->
                 if (response.isSuccessful && response.body() != null) {
-                    viewModel.getCredits(movieId)
                     posterAdapter.submitList(response.body()!!.backdrops)
+                } else {
+                    Toast.makeText(activity, "Response Failed", Toast.LENGTH_SHORT).show()
+                }
+            })
+
+            viewModel.videosList.observe(viewLifecycleOwner, { response ->
+                if (response.isSuccessful && response.body() != null) {
+                    if (response.body()!!.results.isEmpty())
+                        binding.noVideosTv.visibility = View.VISIBLE
+                    videosAdapter.submitList(response.body()!!.results)
                 } else {
                     Toast.makeText(activity, "Response Failed", Toast.LENGTH_SHORT).show()
                 }
@@ -214,7 +247,6 @@ class MoviesDetailDialogFragment(private val movieId: Int) : DialogFragment() {
 
             viewModel.credits.observe(viewLifecycleOwner, { response ->
                 if (response.isSuccessful && response.body() != null) {
-                    viewModel.getSimilarMovies(movieId)
                     setUpCastAndCrew(response.body()!!)
                 } else {
                     Toast.makeText(activity, "Response Failed", Toast.LENGTH_SHORT).show()
@@ -232,7 +264,6 @@ class MoviesDetailDialogFragment(private val movieId: Int) : DialogFragment() {
         }
 
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

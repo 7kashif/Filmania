@@ -7,16 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.filmaxtesting.R
 import com.example.filmaxtesting.adapter.movie.SimilarMoviesAdapter
 import com.example.filmaxtesting.adapter.shows.SimilarShowsAdapter
 import com.example.filmaxtesting.databinding.FragmentHomeBinding
-import com.example.filmaxtesting.fragments.movie.*
-import com.example.filmaxtesting.fragments.show.PopularShowsFragment
+import com.example.filmaxtesting.fragments.movie.MoviesDetailDialogFragment
 import com.example.filmaxtesting.fragments.show.ShowDetailsDialogFragment
-import com.example.filmaxtesting.fragments.show.TopRatedShowsFragment
-import com.example.filmaxtesting.fragments.show.TrendingShowsFragment
 import com.example.filmaxtesting.viewModel.movie.MovieHostViewModel
 
 class HomeFragment : Fragment() {
@@ -56,41 +53,32 @@ class HomeFragment : Fragment() {
 
 
         binding.seeAllPopularMovies.setOnClickListener {
-            openRelativeFragment(PopularMoviesFragment())
+            this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPopularMoviesFragment())
         }
 
         binding.seeAllPopularShows.setOnClickListener {
-            openRelativeFragment(PopularShowsFragment())
+            this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPopularShowsFragment())
         }
 
         binding.seeAllTopRatedMovies.setOnClickListener {
-            openRelativeFragment(TopRatedMoviesFragment())
+            this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToTopRatedMoviesFragment())
         }
 
         binding.seeAllTopRatedShows.setOnClickListener {
-            openRelativeFragment(TopRatedShowsFragment())
+            this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToTopRatedShowsFragment())
         }
 
         binding.seeAllUpComingMovies.setOnClickListener {
-            openRelativeFragment(UpComingMoviesFragment())
+            this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToUpComingMoviesFragment())
         }
 
         binding.seeAllTrendingMovies.setOnClickListener {
-            openRelativeFragment(TrendingMoviesFragment())
+            this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToTrendingMoviesFragment())
         }
         binding.seeAllTrendingShows.setOnClickListener {
-            openRelativeFragment(TrendingShowsFragment())
+            this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToTrendingShowsFragment())
         }
 
-    }
-
-    private fun openRelativeFragment(fragment: Fragment) {
-        activity.let {
-            it?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.flFragment,fragment)
-                commit()
-            }
-        }
     }
 
     private fun callMoviesClickListeners(adapter: SimilarMoviesAdapter) {
