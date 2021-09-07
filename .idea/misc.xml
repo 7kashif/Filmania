@@ -3,13 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/drawable/ci_selected.xml" value="0.21770833333333334" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/drawable/ic_ci_selected.xml" value="0.21770833333333334" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/drawable/indicator_bg.xml" value="0.20260416666666667" />
         <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/activity_main.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/cast_crew_view.xml" value="0.2015625" />
         <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/cast_list_item.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/crew_view.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/expanded_view.xml" value="0.2015625" />
         <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_book_marks.xml" value="0.2015625" />
         <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_dialog_movie_detail.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_dialog_person_detail.xml" value="0.2015625" />
         <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_dialog_show_details.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_home.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_paging.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_popular_people.xml" value="0.2015625" />
         <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_search.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_tv_shows_host.xml" value="0.2015625" />
         <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/fragment_video.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/media_details_shimmer_layout.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/person_detail_shimmer_layout.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/person_image_list_item.xml" value="0.2015625" />
+        <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/similar_list_item.xml" value="0.2015625" />
         <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/try_layout.xml" value="0.2015625" />
         <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/video_list_item.xml" value="0.2015625" />
         <entry key="..\:/University DATA/FilmaxTesting/app/src/main/res/layout/videos_view.xml" value="0.2015625" />

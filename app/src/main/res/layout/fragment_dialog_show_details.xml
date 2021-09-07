@@ -24,6 +24,7 @@
 
         <ScrollView
             android:id="@+id/scrollView"
+            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/transparent">
@@ -92,6 +93,21 @@
                         android:layout_marginTop="8dp"
                         android:padding="5dp"
                         app:layout_constraintTop_toBottomOf="@id/releaseDate" />
+
+                    <me.relex.circleindicator.CircleIndicator3
+                        android:id="@+id/circleIndicator"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        app:ci_gravity="center"
+                        app:ci_width="5dp"
+                        app:ci_height="5dp"
+                        app:ci_orientation="horizontal"
+                        app:ci_drawable="@drawable/ic_ci_selected"
+                        app:ci_drawable_unselected="@drawable/ic_ci_unselected"
+                        android:background="@drawable/indicator_bg"
+                        app:layout_constraintBottom_toBottomOf="@id/postersRv"
+                        app:layout_constraintStart_toStartOf="@id/postersRv"
+                        app:layout_constraintEnd_toEndOf="@id/postersRv"/>
 
                     <ImageView
                         android:id="@+id/poster"
@@ -391,35 +407,15 @@
 
         </ScrollView>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/loadingLayout"
-            android:background="@color/off_black"
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerLayout"
+            app:shimmer_auto_start="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="150dp"
-                android:indeterminateTint="@color/yellow"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+            <include layout="@layout/media_details_shimmer_layout"/>
 
-            <TextView
-                android:id="@+id/loadingTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/loading"
-                android:textColor="@color/white"
-                android:textSize="25sp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@id/progressBar"
-                app:layout_constraintStart_toStartOf="@id/progressBar"
-                app:layout_constraintEnd_toEndOf="@id/progressBar" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

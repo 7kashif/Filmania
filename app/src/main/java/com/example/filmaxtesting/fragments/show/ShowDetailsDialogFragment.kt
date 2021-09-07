@@ -71,6 +71,8 @@ class ShowDetailsDialogFragment(private val showId: Int) : DialogFragment() {
         loadData()
         setClickListeners()
 
+        binding.circleIndicator.setViewPager(binding.postersRv)
+        posterAdapter.registerAdapterDataObserver(binding.circleIndicator.adapterDataObserver)
 
         return binding.root
     }
@@ -223,7 +225,11 @@ class ShowDetailsDialogFragment(private val showId: Int) : DialogFragment() {
 
             viewModel.posters.observe(viewLifecycleOwner, { response ->
                 if (response.isSuccessful && response.body() != null) {
-                    posterAdapter.submitList(response.body()!!.backdrops)
+                    if(response.body()!!.backdrops.size > 20){
+                        val sublist = response.body()!!.backdrops.subList(0,19)
+                        posterAdapter.submitList(sublist)
+                    } else
+                        posterAdapter.submitList(response.body()!!.backdrops)
                 } else
                     Toast.makeText(activity, "Response Failed", Toast.LENGTH_SHORT).show()
             })
@@ -248,7 +254,9 @@ class ShowDetailsDialogFragment(private val showId: Int) : DialogFragment() {
             viewModel.similarShows.observe(viewLifecycleOwner, { response ->
                 if (response.isSuccessful && response.body() != null) {
                     similarShowsAdapter.submitList(response.body()!!.results)
-                    binding.loadingLayout.visibility = View.GONE
+                    binding.shimmerLayout.stopShimmer()
+                    binding.shimmerLayout.visibility = View.GONE
+                    binding.scrollView.visibility = View.VISIBLE
                 } else
                     Toast.makeText(activity, "Response Failed", Toast.LENGTH_SHORT).show()
             })

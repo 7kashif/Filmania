@@ -80,8 +80,7 @@
     <fragment
         android:id="@+id/popularShowsFragment"
         android:name="com.example.filmaxtesting.fragments.show.PopularShowsFragment"
-        android:label="fragment_popular_shows"
-        tools:layout="@layout/fragment_popular_shows" >
+        android:label="fragment_popular_shows">
         <action
             android:id="@+id/action_popularShowsFragment_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -100,8 +99,7 @@
     <fragment
         android:id="@+id/topRatedShowsFragment"
         android:name="com.example.filmaxtesting.fragments.show.TopRatedShowsFragment"
-        android:label="fragment_top_rated_shows"
-        tools:layout="@layout/fragment_top_rated_shows" >
+        android:label="fragment_top_rated_shows">
         <action
             android:id="@+id/action_topRatedShowsFragment_to_homeFragment"
             app:destination="@id/homeFragment"

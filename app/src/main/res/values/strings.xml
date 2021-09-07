@@ -66,5 +66,10 @@
     <string name="loading_video">Loading Video…</string>
     <string name="select_an_app">Select an app</string>
 
+    <string name="no_biography">No Biography available.</string>
+
     <string name="set_text">%1$s</string>
+
+    <string name="popular_shows">Popular Shows</string>
+    <string name="top_rated_shows">Top Rated Shows</string>
 </resources>

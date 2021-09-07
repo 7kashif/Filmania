@@ -8,6 +8,7 @@ import androidx.core.view.isNotEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmaxtesting.adapter.person.PopularPeoplePagingAdapter
@@ -15,7 +16,9 @@ import com.example.filmaxtesting.databinding.FragmentPopularPeopleBinding
 import com.example.filmaxtesting.viewModel.PopularPeopleViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class PopularPeopleFragment : Fragment() {
@@ -32,6 +35,19 @@ class PopularPeopleFragment : Fragment() {
 
         setupRv()
         loadData()
+
+        lifecycleScope.launch {
+            popularPeopleAdapter.loadStateFlow.map {
+                it.refresh
+            }.distinctUntilChanged()
+                .collect {
+                    if (it is LoadState.Loading) {
+                        binding.loadingLayout.visibility = View.VISIBLE
+                    }  else
+                        binding.loadingLayout.visibility = View.GONE
+                }
+        }
+
 
         popularPeopleAdapter.setOnItemClickListener { item ->
             activity?.let {

@@ -70,7 +70,9 @@ class PersonDetailsDialogFragment(private val personId: Int) : DialogFragment() 
             viewModel.relatedMedia.observe(viewLifecycleOwner, { response ->
                 if (response.isSuccessful && response.body() != null) {
                     relatedMediaAdapter.submitList(response.body()!!.cast)
-                    binding.loadingLayout.visibility = View.GONE
+                    binding.shimmerLayout.stopShimmer()
+                    binding.shimmerLayout.visibility = View.GONE
+                    binding.scrollView.visibility = View.VISIBLE
                 } else
                     Toast.makeText(activity, "Response Failed", Toast.LENGTH_SHORT).show()
             })
@@ -92,15 +94,20 @@ class PersonDetailsDialogFragment(private val personId: Int) : DialogFragment() 
                 birthday.text = it
             }
             if (item.birthday == null) {
-                age.text = "-"
-                birthday.text = "-"
+                age.text = "N/A"
+                birthday.text = "N/A"
             }
             if (item.place_of_birth != null)
                 from.text = item.place_of_birth
             else
-                from.text = "-"
+                from.text = "N/A"
 
-            setReadMoreTextView(activity,biography,item.biography)
+            if(item.biography.isEmpty()) {
+                biography.setTextColor(resources.getColor(R.color.nepal,null))
+                biography.text = getString(R.string.no_biography)
+            }
+            else
+                setReadMoreTextView(activity,biography,item.biography)
         }
     }
 

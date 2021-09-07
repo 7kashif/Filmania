@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/limed_spruce">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/itemProfile"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="35dp"
+        android:backgroundTint="@color/nepal"
+        app:cardCornerRadius="180dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/itemName"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/nepal"
+        app:layout_constraintBottom_toBottomOf="@id/itemProfile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/itemProfile"
+        app:layout_constraintTop_toTopOf="@id/itemProfile" />
+
+    <View
+        android:id="@+id/itemField"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/nepal"
+        app:layout_constraintStart_toStartOf="@id/itemName"
+        app:layout_constraintTop_toBottomOf="@id/itemName" />
+
+    <View
+        android:id="@+id/itemAbout"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/nepal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemProfile" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/imagesLayout"
+        android:layout_width="0dp"
+        android:layout_height="190dp"
+        android:layout_margin="10dp"
+        app:layout_constraintTop_toBottomOf="@id/itemAbout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <View
+            android:id="@+id/image1"
+            android:layout_width="0dp"
+            android:background="@color/nepal"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/image2"/>
+
+        <View
+            android:id="@+id/image2"
+            android:layout_width="0dp"
+            android:background="@color/nepal"
+            android:layout_marginEnd="10dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toEndOf="@id/image1"
+            app:layout_constraintEnd_toStartOf="@id/image3"/>
+
+        <View
+            android:id="@+id/image3"
+            android:layout_width="0dp"
+            android:background="@color/nepal"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toEndOf="@id/image2"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mediaLayout"
+        android:layout_width="0dp"
+        android:layout_height="190dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/imagesLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <View
+            android:id="@+id/media1"
+            android:layout_width="0dp"
+            android:background="@color/nepal"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/media2"/>
+
+        <View
+            android:id="@+id/media2"
+            android:layout_width="0dp"
+            android:background="@color/nepal"
+            android:layout_marginEnd="10dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toEndOf="@id/media1"
+            app:layout_constraintEnd_toStartOf="@id/media3"/>
+
+        <View
+            android:id="@+id/media3"
+            android:layout_width="0dp"
+            android:background="@color/nepal"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toEndOf="@id/media2"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

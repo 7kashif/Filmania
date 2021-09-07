@@ -39,11 +39,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
                 android:background="@color/transparent"
                 android:text="@string/upcoming"
+                android:textStyle="bold"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@id/upcomingMoviesLine"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -69,26 +71,17 @@
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:src="@drawable/ic_forward"
-                app:layout_constraintBottom_toTopOf="@id/upcomingMoviesLine"
-                app:layout_constraintEnd_toEndOf="@id/upcomingMoviesLine"
+                app:layout_constraintTop_toTopOf="@id/upComingMoviesTv"
+                app:layout_constraintBottom_toBottomOf="@id/upComingMoviesTv"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:tint="@color/nepal" />
-
-            <View
-                android:id="@+id/upcomingMoviesLine"
-                android:layout_width="match_parent"
-                android:layout_height="1.5dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:background="@color/nepal"
-                app:layout_constraintTop_toBottomOf="@id/upComingMoviesTv" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/upcomingMoviesRv"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginTop="5dp"
-                app:layout_constraintTop_toBottomOf="@id/upcomingMoviesLine" />
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/upComingMoviesTv" />
 
             <ProgressBar
                 android:id="@+id/upcomingMoviesProgressBar"
@@ -105,11 +98,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:textStyle="bold"
                 android:background="@color/transparent"
                 android:text="@string/trending"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@id/upcomingMoviesLine"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/upcomingMoviesRv" />
 
             <TextView
@@ -124,15 +119,6 @@
                 app:layout_constraintBottom_toBottomOf="@id/trendingMoviesTv"
                 app:layout_constraintStart_toEndOf="@id/trendingMoviesTv" />
 
-            <View
-                android:id="@+id/trendingMoviesLine"
-                android:layout_width="match_parent"
-                android:layout_height="1.5dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:background="@color/nepal"
-                app:layout_constraintTop_toBottomOf="@id/trendingMoviesTv" />
 
             <ImageButton
                 android:id="@+id/seeAllTrendingMovies"
@@ -145,16 +131,17 @@
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:src="@drawable/ic_forward"
-                app:layout_constraintBottom_toTopOf="@id/trendingMoviesLine"
-                app:layout_constraintEnd_toEndOf="@id/trendingMoviesLine"
+                app:layout_constraintTop_toTopOf="@id/trendingMoviesTv"
+                app:layout_constraintBottom_toBottomOf="@id/trendingMoviesTv"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:tint="@color/nepal" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/trendingMoviesRv"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginTop="5dp"
-                app:layout_constraintTop_toBottomOf="@id/trendingMoviesLine" />
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/trendingMoviesTv" />
 
             <ProgressBar
                 android:id="@+id/trendingMoviesProgressBar"
@@ -171,11 +158,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:textStyle="bold"
                 android:background="@color/transparent"
                 android:text="@string/trending"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@id/trendingShowsLine"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/trendingMoviesRv" />
 
             <TextView
@@ -190,15 +179,6 @@
                 app:layout_constraintBottom_toBottomOf="@id/trendingShowsTv"
                 app:layout_constraintStart_toEndOf="@id/trendingShowsTv" />
 
-            <View
-                android:id="@+id/trendingShowsLine"
-                android:layout_width="match_parent"
-                android:layout_height="1.5dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:background="@color/nepal"
-                app:layout_constraintTop_toBottomOf="@id/trendingShowsTv" />
 
             <ImageButton
                 android:id="@+id/seeAllTrendingShows"
@@ -211,16 +191,17 @@
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:src="@drawable/ic_forward"
-                app:layout_constraintBottom_toTopOf="@id/trendingShowsLine"
-                app:layout_constraintEnd_toEndOf="@id/trendingShowsLine"
+                app:layout_constraintTop_toTopOf="@id/trendingShowsTv"
+                app:layout_constraintBottom_toBottomOf="@id/trendingShowsTv"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:tint="@color/nepal" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/trendingShowsRv"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginTop="5dp"
-                app:layout_constraintTop_toBottomOf="@id/trendingShowsLine" />
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/trendingShowsTv" />
 
             <ProgressBar
                 android:id="@+id/trendingShowsProgressBar"
@@ -237,11 +218,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
+                android:layout_marginStart="10dp"
+                android:textStyle="bold"
                 android:background="@color/transparent"
                 android:text="@string/popular"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@id/popularMoviesLine"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/trendingShowsRv" />
 
             <TextView
@@ -267,26 +250,17 @@
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:src="@drawable/ic_forward"
-                app:layout_constraintBottom_toTopOf="@id/popularMoviesLine"
-                app:layout_constraintEnd_toEndOf="@id/popularMoviesLine"
+                app:layout_constraintTop_toTopOf="@id/popularMoviesTv"
+                app:layout_constraintBottom_toBottomOf="@id/popularMoviesTv"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:tint="@color/nepal" />
-
-            <View
-                android:id="@+id/popularMoviesLine"
-                android:layout_width="match_parent"
-                android:layout_height="1.5dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:background="@color/nepal"
-                app:layout_constraintTop_toBottomOf="@id/popularMoviesTv" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/popularMoviesRv"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginTop="5dp"
-                app:layout_constraintTop_toBottomOf="@id/popularMoviesLine" />
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/popularMoviesTv" />
 
             <ProgressBar
                 android:id="@+id/popularMoviesProgressBar"
@@ -303,11 +277,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
+                android:layout_marginStart="10dp"
+                android:textStyle="bold"
                 android:background="@color/transparent"
                 android:text="@string/popular"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@id/popularShowsLine"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/popularMoviesRv" />
 
             <TextView
@@ -333,26 +309,17 @@
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:src="@drawable/ic_forward"
-                app:layout_constraintBottom_toTopOf="@id/popularShowsLine"
-                app:layout_constraintEnd_toEndOf="@id/popularShowsLine"
+                app:layout_constraintTop_toTopOf="@id/popularShowsTv"
+                app:layout_constraintBottom_toBottomOf="@id/popularShowsTv"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:tint="@color/nepal" />
-
-            <View
-                android:id="@+id/popularShowsLine"
-                android:layout_width="match_parent"
-                android:layout_height="1.5dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:background="@color/nepal"
-                app:layout_constraintTop_toBottomOf="@id/popularShowsTv" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/popularShowsRv"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginTop="5dp"
-                app:layout_constraintTop_toBottomOf="@id/popularShowsLine" />
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/popularShowsTv" />
 
             <ProgressBar
                 android:id="@+id/popularShowsProgressBar"
@@ -369,11 +336,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
+                android:layout_marginStart="10dp"
+                android:textStyle="bold"
                 android:background="@color/transparent"
                 android:text="@string/top_rated"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@id/topRatedMoviesLine"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/popularShowsRv" />
 
             <TextView
@@ -400,25 +369,17 @@
                 android:src="@drawable/ic_forward"
                 android:background="@color/transparent"
                 app:tint="@color/nepal"
-                app:layout_constraintBottom_toTopOf="@id/topRatedMoviesLine"
-                app:layout_constraintEnd_toEndOf="@id/topRatedMoviesLine" />
+                app:layout_constraintTop_toTopOf="@id/topRatedMoviesTv"
+                app:layout_constraintBottom_toBottomOf="@id/topRatedMoviesTv"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-            <View
-                android:id="@+id/topRatedMoviesLine"
-                android:layout_width="match_parent"
-                android:layout_height="1.5dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:background="@color/nepal"
-                app:layout_constraintTop_toBottomOf="@id/topRatedMoviesTv" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/topRatedMoviesRv"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginTop="5dp"
-                app:layout_constraintTop_toBottomOf="@id/topRatedMoviesLine" />
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/topRatedMoviesTv" />
 
             <ProgressBar
                 android:id="@+id/topRatedMoviesProgressBar"
@@ -430,19 +391,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/topRatedMoviesRv" />
 
-
-
-
             <TextView
                 android:id="@+id/topRatedShowsTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
+                android:layout_marginStart="10dp"
+                android:textStyle="bold"
                 android:background="@color/transparent"
                 android:text="@string/top_rated"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@id/topRatedMoviesLine"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/topRatedMoviesRv" />
 
             <TextView
@@ -469,25 +429,17 @@
                 android:src="@drawable/ic_forward"
                 android:background="@color/transparent"
                 app:tint="@color/nepal"
-                app:layout_constraintBottom_toTopOf="@id/topRatedShowsLine"
-                app:layout_constraintEnd_toEndOf="@id/topRatedShowsLine" />
+                app:layout_constraintTop_toTopOf="@id/topRatedShowsTv"
+                app:layout_constraintBottom_toBottomOf="@id/topRatedShowsTv"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-            <View
-                android:id="@+id/topRatedShowsLine"
-                android:layout_width="match_parent"
-                android:layout_height="1.5dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:background="@color/nepal"
-                app:layout_constraintTop_toBottomOf="@id/topRatedShowsTv" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/topRatedShowsRv"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginTop="5dp"
-                app:layout_constraintTop_toBottomOf="@id/topRatedShowsLine" />
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/topRatedShowsTv" />
 
             <ProgressBar
                 android:id="@+id/topRatedShowsProgressBar"
@@ -498,8 +450,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/topRatedShowsRv" />
-
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
