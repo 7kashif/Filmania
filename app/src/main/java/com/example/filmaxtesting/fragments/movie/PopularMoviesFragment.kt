@@ -6,22 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.filmaxtesting.R
 import com.example.filmaxtesting.adapter.movie.MoviesAdapter
-import com.example.filmaxtesting.databinding.FragmentPopularMoviesBinding
-import com.example.filmaxtesting.roomDatabase.BookMarkDatabase
+import com.example.filmaxtesting.databinding.FragmentPagingBinding
 import com.example.filmaxtesting.viewModel.movie.PopularMoviesViewModel
-import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModel
-import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModelFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class PopularMoviesFragment : Fragment() {
-    private lateinit var binding: FragmentPopularMoviesBinding
+    private lateinit var binding: FragmentPagingBinding
     private lateinit var moviesAdapter: MoviesAdapter
     private val pagingViewModel: PopularMoviesViewModel by activityViewModels()
 
@@ -29,13 +29,28 @@ class PopularMoviesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentPopularMoviesBinding.inflate(inflater)
+        binding = FragmentPagingBinding.inflate(inflater)
+        binding.title.text = getString(R.string.popular_movies)
+        pagingViewModel.getMovies()
 
         setUpRv()
         loadData()
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             loadData()
+        }
+
+        lifecycleScope.launch {
+            moviesAdapter.loadStateFlow.map {
+                it.refresh
+            }.distinctUntilChanged()
+                .collect {
+                    if (it is LoadState.Loading) {
+                        binding.linearLayout.visibility = View.VISIBLE
+                        binding.swipeRefreshLayout.isRefreshing = false
+                    }  else
+                        binding.linearLayout.visibility = View.GONE
+                }
         }
 
         moviesAdapter.setOnItemClickListener { item ->
@@ -58,12 +73,15 @@ class PopularMoviesFragment : Fragment() {
     }
 
     private fun loadData() {
-        lifecycleScope.launch {
-            pagingViewModel.getMovies(binding)
-            pagingViewModel.moviesList?.flowOn(Dispatchers.Default)?.collect { pagingData ->
+        lifecycleScope.launch(Dispatchers.IO) {
+            pagingViewModel.moviesList?.flowOn(Dispatchers.IO)?.collect { pagingData ->
                 moviesAdapter.submitData(pagingData)
             }
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        pagingViewModel.viewModelJOb.cancel()
+    }
 }

@@ -1,16 +1,13 @@
 package com.example.filmaxtesting.pagingSource.movie
 
-import android.view.View
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.filmaxtesting.apiService.ApiService
 import com.example.filmaxtesting.dataClasses.movies.Movies
-import com.example.filmaxtesting.databinding.FragmentTopRatedMoviesBinding
 import java.util.*
 
 class TopRatedMoviesPagingSource(
-    private val apiService: ApiService,
-    private val binding: FragmentTopRatedMoviesBinding
+    private val apiService: ApiService
 ) : PagingSource<Int, Movies>() {
     override fun getRefreshKey(state: PagingState<Int, Movies>): Int? {
         return null
@@ -21,12 +18,6 @@ class TopRatedMoviesPagingSource(
 
             val currentPage = params.key ?: 1
             val response = apiService.getTopRatedMovies(page = currentPage)
-            if (response.isSuccessful && response.body() != null) {
-                binding.apply {
-                    linearLayout.visibility = View.GONE
-                    swipeRefreshLayout.isRefreshing = false
-                }
-            }
             val responseData = mutableListOf<Movies>()
             val data = response.body()?.results ?: Collections.emptyList()
             responseData.addAll(data)

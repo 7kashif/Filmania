@@ -15,6 +15,7 @@ import com.example.filmaxtesting.fragments.movie.MoviesDetailDialogFragment
 import com.example.filmaxtesting.fragments.people.PersonDetailsDialogFragment
 import com.example.filmaxtesting.fragments.show.ShowDetailsDialogFragment
 import com.example.filmaxtesting.getQueryTextChangeStateFlow
+import com.example.filmaxtesting.isNetworkAvailable
 import com.example.filmaxtesting.viewModel.SearchViewModel
 import dagger.internal.SetFactory.empty
 import kotlinx.coroutines.*
@@ -34,7 +35,14 @@ class SearchFragment: Fragment() {
     ): View {
         binding= FragmentSearchBinding.inflate(inflater)
         setUpRv()
-        loadData()
+
+        if(isNetworkAvailable(requireActivity())) {
+            binding.dataLayout.visibility = View.VISIBLE
+        }
+        else {
+            binding.noNetwork.visibility = View.VISIBLE
+        }
+
         setUpDebounce()
         setUpAdapterClickListener()
 
@@ -118,7 +126,7 @@ class SearchFragment: Fragment() {
     override fun onPause() {
         super.onPause()
         lifecycleScope.launch {
-            searchAdapter.submitData(PagingData.empty())
+            searchAdapter.submitData(lifecycle,PagingData.empty())
         }
     }
 }

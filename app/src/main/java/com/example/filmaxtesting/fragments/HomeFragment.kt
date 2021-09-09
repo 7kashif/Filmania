@@ -4,16 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.filmaxtesting.R
+import com.example.filmaxtesting.ViewDialog
 import com.example.filmaxtesting.adapter.movie.SimilarMoviesAdapter
 import com.example.filmaxtesting.adapter.shows.SimilarShowsAdapter
 import com.example.filmaxtesting.databinding.FragmentHomeBinding
 import com.example.filmaxtesting.fragments.movie.MoviesDetailDialogFragment
 import com.example.filmaxtesting.fragments.show.ShowDetailsDialogFragment
+import com.example.filmaxtesting.isNetworkAvailable
 import com.example.filmaxtesting.viewModel.movie.MovieHostViewModel
 
 class HomeFragment : Fragment() {
@@ -35,11 +39,23 @@ class HomeFragment : Fragment() {
 
         setUpMoviesRVs()
         setUpShowsRvs()
-        loadData()
         setupClickListeners()
+
+        if(isNetworkAvailable(requireActivity())) {
+            binding.dataLayout.visibility = View.VISIBLE
+            loadData()
+        }
+        else {
+            binding.noNetwork.visibility = View.VISIBLE
+        }
+
+        binding.aboutButton.setOnClickListener {
+            showPopUpMenu(it,inflater)
+        }
 
         return binding.root
     }
+
 
     private fun setupClickListeners() {
         callMoviesClickListeners(upComingMoviesAdapter)
@@ -188,6 +204,19 @@ class HomeFragment : Fragment() {
                 layoutManager = LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
                 setHasFixedSize(true)
             }
+        }
+    }
+
+    private fun showPopUpMenu(view: View, inflater: LayoutInflater) {
+        PopupMenu(activity,view).apply {
+            setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.menuAbout -> ViewDialog.showAbout(activity,inflater)
+                }
+                true
+            }
+            inflate(R.menu.about_menu)
+            show()
         }
     }
 

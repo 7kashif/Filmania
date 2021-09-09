@@ -1,12 +1,9 @@
 package com.example.filmaxtesting.pagingSource.movie
 
-import android.view.View
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.filmaxtesting.apiService.ApiService
 import com.example.filmaxtesting.dataClasses.movies.Movies
-import com.example.filmaxtesting.databinding.FragmentPagingBinding
-import com.example.filmaxtesting.databinding.FragmentPopularMoviesBinding
 import java.util.*
 
 class UpComingMoviesPagingSource (

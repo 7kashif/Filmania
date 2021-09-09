@@ -4,6 +4,7 @@ package com.example.filmaxtesting.adapter.search
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -44,7 +45,6 @@ class SearchAdapter: PagingDataAdapter<MultiSearchResults, SearchAdapter.ImageVi
 
         holder.binding.apply {
             holder.itemView.apply {
-                voteCount.visibility= View.GONE
 
 
                 when (currentItem.media_type) {
@@ -63,6 +63,7 @@ class SearchAdapter: PagingDataAdapter<MultiSearchResults, SearchAdapter.ImageVi
                             Glide.with(this).load(R.drawable.no_image).into(listItemPoster)
                     }
                     "person" -> {
+                        voteCount.visibility= View.GONE
                         listItemTitle.text = currentItem.name
                         if (currentItem.profile_path != null )
                             Glide.with(this).load(Constants.BASE_IMAGE_PATH + currentItem.profile_path).into(listItemPoster)
@@ -71,6 +72,13 @@ class SearchAdapter: PagingDataAdapter<MultiSearchResults, SearchAdapter.ImageVi
                     }
                 }
 
+                val rating=currentItem.vote_average
+                voteCount.text="$rating"
+                voteCount.background=when(rating) {
+                    in 8.0..10.0 -> ResourcesCompat.getDrawable(resources, R.drawable.green_bg,null)
+                    in 5.0..7.9 -> ResourcesCompat.getDrawable(resources, R.drawable.yellow_bg,null)
+                    else -> ResourcesCompat.getDrawable(resources, R.drawable.red_bg,null)
+                }
 
                 root.setOnClickListener {
                     onItemClickListener?.let {

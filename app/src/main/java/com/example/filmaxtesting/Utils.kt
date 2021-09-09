@@ -2,7 +2,10 @@ package com.example.filmaxtesting
 
 import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.ImageView
@@ -12,6 +15,7 @@ import coil.transform.BlurTransformation
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.devs.readmoreoption.ReadMoreOption
+import com.example.filmaxtesting.databinding.AboutViewBinding
 import com.example.filmaxtesting.databinding.ExpandedViewBinding
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -27,6 +31,15 @@ object Constants {
     const val API_KEY = "f5202ed4328c007861005ae7fbc2ad86"
     const val BASE_IMAGE_PATH = "https://image.tmdb.org/t/p/w500/"
 
+}
+
+fun isNetworkAvailable(context: Context): Boolean {
+
+    val manager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+    val capabilities = manager?.getNetworkCapabilities(manager.activeNetwork) ?: return false
+    return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+            || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+            || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
 }
 
 object ViewDialog {
@@ -49,6 +62,22 @@ object ViewDialog {
             dialog.dismiss()
         }
 
+        dialog.show()
+    }
+
+    fun showAbout(activity: Activity?, inflater: LayoutInflater) {
+        val binding = AboutViewBinding.inflate(inflater)
+        val dialog = Dialog(activity!!,android.R.style.Theme_Translucent_NoTitleBar_Fullscreen)
+        dialog.apply {
+            setContentView(binding.root)
+            window?.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT
+            )
+        }
+        binding.closeButton.setOnClickListener {
+            dialog.dismiss()
+        }
         dialog.show()
     }
 }

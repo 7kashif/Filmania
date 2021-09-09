@@ -8,9 +8,9 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.filmaxtesting.apiService.ApiService
 import com.example.filmaxtesting.dataClasses.movies.Movies
-import com.example.filmaxtesting.databinding.FragmentPopularMoviesBinding
 import com.example.filmaxtesting.pagingSource.movie.PopularMoviesPagingSource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -22,15 +22,21 @@ constructor(
     val apiService: ApiService
 ): ViewModel(){
 
+    val viewModelJOb = Job()
+    private val uiScope = CoroutineScope(Dispatchers.IO + viewModelJOb)
     var moviesList: Flow<PagingData<Movies>>?=null
 
-    fun getMovies(binding : FragmentPopularMoviesBinding) {
-            moviesList=beginLoading(binding)
+    fun getMovies() {
+        uiScope.launch {
+            moviesList=beginLoading()
+        }
     }
 
-    private fun beginLoading(binding: FragmentPopularMoviesBinding):Flow<PagingData<Movies>> {
-        return Pager(PagingConfig(pageSize = 1)) {
-            PopularMoviesPagingSource(apiService,binding)
-        }.flow.cachedIn(viewModelScope)
+    private suspend fun beginLoading():Flow<PagingData<Movies>> {
+        return withContext(Dispatchers.IO) {
+            Pager(PagingConfig(pageSize = 1)) {
+                PopularMoviesPagingSource(apiService)
+            }.flow.cachedIn(viewModelScope)
+        }
     }
 }

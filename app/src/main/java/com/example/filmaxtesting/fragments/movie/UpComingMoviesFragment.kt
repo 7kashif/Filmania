@@ -36,7 +36,6 @@ class UpComingMoviesFragment : Fragment() {
         setUpRv()
         loadData()
 
-
         lifecycleScope.launch {
             moviesAdapter.loadStateFlow.map {
                 it.refresh
@@ -74,7 +73,7 @@ class UpComingMoviesFragment : Fragment() {
     }
 
     private fun loadData() {
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launch(Dispatchers.IO) {
             pagingViewModel.moviesList?.flowOn(Dispatchers.IO)?.collect { pagingData ->
                 moviesAdapter.submitData(pagingData)
             }

@@ -70,8 +70,7 @@
     <fragment
         android:id="@+id/popularMoviesFragment"
         android:name="com.example.filmaxtesting.fragments.movie.PopularMoviesFragment"
-        android:label="fragment_popular_movies"
-        tools:layout="@layout/fragment_popular_movies" >
+        android:label="fragment_popular_movies">
         <action
             android:id="@+id/action_popularMoviesFragment_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -89,8 +88,7 @@
     <fragment
         android:id="@+id/topRatedMoviesFragment"
         android:name="com.example.filmaxtesting.fragments.movie.TopRatedMoviesFragment"
-        android:label="fragment_top_rated_movies"
-        tools:layout="@layout/fragment_top_rated_movies" >
+        android:label="fragment_top_rated_movies">
         <action
             android:id="@+id/action_topRatedMoviesFragment_to_homeFragment"
             app:destination="@id/homeFragment"

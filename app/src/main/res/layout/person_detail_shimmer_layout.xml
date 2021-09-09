@@ -42,7 +42,7 @@
     <View
         android:id="@+id/itemAbout"
         android:layout_width="0dp"
-        android:layout_height="250dp"
+        android:layout_height="210dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
@@ -51,79 +51,117 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/itemProfile" />
 
+    <View
+        android:id="@+id/itemImageLine"
+        android:layout_width="0dp"
+        android:layout_height="1.5dp"
+        android:layout_margin="10dp"
+        android:background="@color/nepal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemAbout" />
+
+    <View
+        android:id="@+id/itemImage"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/nepal"
+        app:layout_constraintTop_toBottomOf="@id/itemImageLine"
+        app:layout_constraintStart_toStartOf="@id/itemImageLine"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/imagesLayout"
         android:layout_width="0dp"
-        android:layout_height="190dp"
+        android:layout_height="150dp"
         android:layout_margin="10dp"
-        app:layout_constraintTop_toBottomOf="@id/itemAbout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemImage">
 
         <View
             android:id="@+id/image1"
             android:layout_width="0dp"
-            android:background="@color/nepal"
             android:layout_height="match_parent"
             android:layout_marginEnd="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/image2"/>
+            android:background="@color/nepal"
+            app:layout_constraintEnd_toStartOf="@id/image2"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <View
             android:id="@+id/image2"
             android:layout_width="0dp"
-            android:background="@color/nepal"
-            android:layout_marginEnd="10dp"
             android:layout_height="match_parent"
-            app:layout_constraintStart_toEndOf="@id/image1"
-            app:layout_constraintEnd_toStartOf="@id/image3"/>
+            android:layout_marginEnd="10dp"
+            android:background="@color/nepal"
+            app:layout_constraintEnd_toStartOf="@id/image3"
+            app:layout_constraintStart_toEndOf="@id/image1" />
 
         <View
             android:id="@+id/image3"
             android:layout_width="0dp"
-            android:background="@color/nepal"
             android:layout_height="match_parent"
-            app:layout_constraintStart_toEndOf="@id/image2"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:background="@color/nepal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/itemMediaLine"
+        android:layout_width="0dp"
+        android:layout_height="1.5dp"
+        android:layout_margin="10dp"
+        android:background="@color/nepal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imagesLayout" />
+
+    <View
+        android:id="@+id/itemMedia"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/nepal"
+        app:layout_constraintTop_toBottomOf="@id/itemMediaLine"
+        app:layout_constraintStart_toStartOf="@id/itemMediaLine"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mediaLayout"
         android:layout_width="0dp"
         android:layout_height="190dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/imagesLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemMedia">
 
         <View
             android:id="@+id/media1"
             android:layout_width="0dp"
-            android:background="@color/nepal"
             android:layout_height="match_parent"
             android:layout_marginEnd="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/media2"/>
+            android:background="@color/nepal"
+            app:layout_constraintEnd_toStartOf="@id/media2"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <View
             android:id="@+id/media2"
             android:layout_width="0dp"
-            android:background="@color/nepal"
-            android:layout_marginEnd="10dp"
             android:layout_height="match_parent"
-            app:layout_constraintStart_toEndOf="@id/media1"
-            app:layout_constraintEnd_toStartOf="@id/media3"/>
+            android:layout_marginEnd="10dp"
+            android:background="@color/nepal"
+            app:layout_constraintEnd_toStartOf="@id/media3"
+            app:layout_constraintStart_toEndOf="@id/media1" />
 
         <View
             android:id="@+id/media3"
             android:layout_width="0dp"
-            android:background="@color/nepal"
             android:layout_height="match_parent"
-            app:layout_constraintStart_toEndOf="@id/media2"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:background="@color/nepal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/media2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
