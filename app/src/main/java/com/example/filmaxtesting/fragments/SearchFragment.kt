@@ -118,7 +118,7 @@ class SearchFragment: Fragment() {
     override fun onPause() {
         super.onPause()
         lifecycleScope.launch {
-            searchAdapter.submitData(PagingData.empty())
+            searchAdapter.submitData(lifecycle,PagingData.empty())
         }
     }
 }

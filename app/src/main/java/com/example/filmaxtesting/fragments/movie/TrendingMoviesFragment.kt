@@ -72,7 +72,7 @@ class TrendingMoviesFragment:Fragment() {
     }
 
     private fun loadData() {
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launch(Dispatchers.IO) {
             pagingViewModel.moviesList?.flowOn(Dispatchers.IO)?.collect { pagingData ->
                 moviesAdapter.submitData(pagingData)
             }

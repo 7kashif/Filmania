@@ -1,6 +1,7 @@
 package com.example.filmaxtesting.fragments.people
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,7 @@ class PopularPeopleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentPopularPeopleBinding.inflate(inflater)
+        viewModel.getPopularPeople()
 
         setupRv()
         loadData()
@@ -69,11 +71,16 @@ class PopularPeopleFragment : Fragment() {
     }
 
     private fun loadData() {
-        lifecycleScope.launch {
-            viewModel.popularPeopleList.flowOn(Dispatchers.IO).collect {
+        lifecycleScope.launch(Dispatchers.IO) {
+            viewModel.peopleList?.flowOn(Dispatchers.IO)?.collect {
                 popularPeopleAdapter.submitData(it)
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.viewModelJob.cancel()
     }
 
 }

@@ -6,16 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.filmaxtesting.R
 import com.example.filmaxtesting.adapter.shows.TvShowsAdapter
 import com.example.filmaxtesting.databinding.FragmentPagingBinding
-import com.example.filmaxtesting.roomDatabase.BookMarkDatabase
-import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModel
-import com.example.filmaxtesting.viewModel.sharedViewModel.SharedViewModelFactory
 import com.example.filmaxtesting.viewModel.show.TopRatedShowsViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -28,19 +24,13 @@ class TopRatedShowsFragment : Fragment() {
     private lateinit var binding:FragmentPagingBinding
     private lateinit var showsAdapter: TvShowsAdapter
     private val pagingViewModel : TopRatedShowsViewModel by activityViewModels()
-    private lateinit var sharedViewModel: SharedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding= FragmentPagingBinding.inflate(inflater)
-        val application= requireNotNull(this.activity).application
-        val dataBase= BookMarkDatabase.getInstance(application).bookMarkDatabaseDao
-        sharedViewModel= ViewModelProvider(this
-            , SharedViewModelFactory(dataBase,application))
-            .get(SharedViewModel::class.java)
-
+        pagingViewModel.getShows()
         binding.title.text = getString(R.string.top_rated_shows)
 
         setUpRv()
@@ -84,8 +74,8 @@ class TopRatedShowsFragment : Fragment() {
     }
 
     private fun loadData() {
-        lifecycleScope.launch{
-            pagingViewModel.topRatedShowsList.flowOn(Dispatchers.IO).collect {
+        lifecycleScope.launch(Dispatchers.IO){
+            pagingViewModel.showsList?.flowOn(Dispatchers.IO)?.collect {
                 showsAdapter.submitData(it)
             }
         }

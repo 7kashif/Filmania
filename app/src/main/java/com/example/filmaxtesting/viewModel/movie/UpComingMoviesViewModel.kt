@@ -26,7 +26,6 @@ constructor(
     val viewModelJOb = Job()
     private val uiScope = CoroutineScope(Dispatchers.IO + viewModelJOb)
     var moviesList : Flow<PagingData<Movies>>? = null
-    
 
     fun getUpcomingMovies() {
        uiScope.launch {

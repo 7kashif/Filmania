@@ -71,7 +71,7 @@ class TrendingShowsFragment:Fragment() {
     }
 
     private fun loadData() {
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launch(Dispatchers.IO) {
             pagingViewModel.showsList?.flowOn(Dispatchers.IO)?.collect { pagingData ->
                 showsAdapter.submitData(pagingData)
             }
@@ -82,5 +82,4 @@ class TrendingShowsFragment:Fragment() {
         super.onPause()
         pagingViewModel.viewModelJOb.cancel()
     }
-
 }

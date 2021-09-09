@@ -8,12 +8,9 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.filmaxtesting.apiService.ApiService
 import com.example.filmaxtesting.dataClasses.movies.Movies
-import com.example.filmaxtesting.databinding.FragmentTopRatedMoviesBinding
 import com.example.filmaxtesting.pagingSource.movie.TopRatedMoviesPagingSource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -29,19 +26,18 @@ constructor(
 
     var moviesList: Flow<PagingData<Movies>>? = null
 
-    fun getMovies(binding: FragmentTopRatedMoviesBinding) {
-        moviesList = beginLoading(binding)
+    fun getMovies() {
+        uiScope.launch {
+            moviesList = beginLoading()
+        }
     }
 
-    private fun beginLoading(binding: FragmentTopRatedMoviesBinding): Flow<PagingData<Movies>> {
-        return Pager(PagingConfig(pageSize = 1)) {
-            TopRatedMoviesPagingSource(apiService, binding)
-        }.flow.cachedIn(viewModelScope)
+    private suspend fun beginLoading(): Flow<PagingData<Movies>> {
+        return withContext(Dispatchers.IO) {
+            Pager(PagingConfig(pageSize = 1)) {
+                TopRatedMoviesPagingSource(apiService)
+            }.flow.cachedIn(viewModelScope)
+        }
     }
 
-//    override fun onCleared() {
-//        super.onCleared()
-//        Log .e("topRatedViewModel","onCleared Called")
-//        viewModelJob.cancel()
-//    }
 }
