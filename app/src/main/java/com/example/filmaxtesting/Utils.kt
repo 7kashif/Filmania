@@ -7,9 +7,14 @@ import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.view.LayoutInflater
+import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
+import androidx.paging.PagingDataAdapter
 import coil.load
 import coil.transform.BlurTransformation
 import com.bumptech.glide.Glide
@@ -17,8 +22,9 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.devs.readmoreoption.ReadMoreOption
 import com.example.filmaxtesting.databinding.AboutViewBinding
 import com.example.filmaxtesting.databinding.ExpandedViewBinding
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import com.example.filmaxtesting.databinding.FragmentPagingBinding
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 object Constants {
 

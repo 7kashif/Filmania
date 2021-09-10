@@ -73,7 +73,7 @@
     <string name="no_network_connection">No Network Connection…!!!</string>
     <string name="on_tmdb">(on TMDB)</string>
     <string name="popular_people">Popular People</string>
-    <string name="version_1_0_0">Version 1.0.0</string>
+    <string name="version_1_0_0">Version 0.6.9</string>
     <string name="creator_name">© 2021 Kashif Masood</string>
     <string name="about_app">This app was created using TMDB API, but it is not endorsed or authenticated by TMDB.</string>
 </resources>

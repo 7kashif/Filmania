@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -33,21 +34,11 @@ class PopularPeopleFragment : Fragment() {
         binding = FragmentPopularPeopleBinding.inflate(inflater)
         viewModel.getPopularPeople()
         setupRv()
+        checkLoadingState()
 
         if(isNetworkAvailable(requireActivity())) {
             binding.dataLayout.visibility = View.VISIBLE
             loadData()
-            lifecycleScope.launch {
-                popularPeopleAdapter.loadStateFlow.map {
-                    it.refresh
-                }.distinctUntilChanged()
-                    .collect {
-                        if (it is LoadState.Loading) {
-                            binding.linearLayout.visibility = View.VISIBLE
-                        }  else
-                            binding.linearLayout.visibility = View.GONE
-                    }
-            }
         }
         else {
             binding.noNetwork.visibility = View.VISIBLE
@@ -55,7 +46,7 @@ class PopularPeopleFragment : Fragment() {
 
 
         binding.swipeRefreshLayout.setOnRefreshListener {
-            loadData()
+            popularPeopleAdapter.refresh()
         }
 
         popularPeopleAdapter.setOnItemClickListener { item ->
@@ -66,6 +57,24 @@ class PopularPeopleFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun checkLoadingState() {
+        lifecycleScope.launch {
+            popularPeopleAdapter.loadStateFlow.map {
+                it.refresh
+            }.distinctUntilChanged()
+                .collect {
+                    if (it is LoadState.Loading) {
+                        binding.rv.isVisible = false
+                        binding.loadingLayout.visibility = View.VISIBLE
+                    }  else {
+                        binding.rv.isVisible = true
+                        binding.swipeRefreshLayout.isRefreshing = false
+                        binding.loadingLayout.visibility = View.GONE
+                    }
+                }
+        }
     }
 
     private fun setupRv() {

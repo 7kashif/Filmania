@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -37,7 +38,7 @@ class TopRatedMoviesFragment : Fragment() {
         loadData()
 
         binding.swipeRefreshLayout.setOnRefreshListener {
-            loadData()
+            moviesAdapter.refresh()
         }
 
         lifecycleScope.launch {
@@ -46,9 +47,13 @@ class TopRatedMoviesFragment : Fragment() {
             }.distinctUntilChanged()
                 .collect {
                     if (it is LoadState.Loading) {
+                        binding.rv.isVisible = false
                         binding.linearLayout.visibility = View.VISIBLE
-                    }  else
+                    }  else {
+                        binding.rv.isVisible = true
+                        binding.swipeRefreshLayout.isRefreshing = false
                         binding.linearLayout.visibility = View.GONE
+                    }
                 }
         }
 

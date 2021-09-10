@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.filmaxtesting.R
 import com.example.filmaxtesting.ViewDialog
 import com.example.filmaxtesting.adapter.movie.SimilarMoviesAdapter
 import com.example.filmaxtesting.adapter.shows.SimilarShowsAdapter
@@ -50,7 +48,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.aboutButton.setOnClickListener {
-            showPopUpMenu(it,inflater)
+            ViewDialog.showAbout(activity,inflater)
         }
 
         return binding.root
@@ -207,18 +205,18 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun showPopUpMenu(view: View, inflater: LayoutInflater) {
-        PopupMenu(activity,view).apply {
-            setOnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.menuAbout -> ViewDialog.showAbout(activity,inflater)
-                }
-                true
-            }
-            inflate(R.menu.about_menu)
-            show()
-        }
-    }
+//    private fun showPopUpMenu(view: View, inflater: LayoutInflater) {
+//        PopupMenu(activity,view).apply {
+//            setOnMenuItemClickListener {
+//                when (it.itemId) {
+//                    R.id.menuAbout -> ViewDialog.showAbout(activity,inflater)
+//                }
+//                true
+//            }
+//            inflate(R.menu.about_menu)
+//            show()
+//        }
+//    }
 
 }
 
