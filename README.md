@@ -1,7 +1,10 @@
 <h2 align="center">Filmania</h2>
 <h4 align="center">Search detail about your favorite movies, shows or celebrities. Create your watchlist.</h4>
  
- <h4>Technologies Used</h4>
+<img src="https://user-images.githubusercontent.com/59311205/133794659-f3be9e4d-7e87-48db-9587-31d5d242fe0c.jpg" 
+height="60%" width="40%">
+
+<h4>Technologies Used</h4>
 <ul>
     <li>Android Studio</li>
     <li>Kotlin</li>
@@ -13,5 +16,3 @@
     <li>Dagger Hilt</li>
     <li>Room persistence</li>
 </ul>
- 
-![20210916_001956](https://user-images.githubusercontent.com/59311205/133794659-f3be9e4d-7e87-48db-9587-31d5d242fe0c.jpg)
