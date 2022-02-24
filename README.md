@@ -1,5 +1,5 @@
 <h2 align="center">Filmania</h2>
-<h4 align="center">Search detail about your favorite movies, shows or celebrities. Create your watchlist.</h4>
+<h4 align="center">Search details about your favorite movies, shows or celebrities. Create your watchlist.</h4>
  
 <img src="https://user-images.githubusercontent.com/59311205/133794659-f3be9e4d-7e87-48db-9587-31d5d242fe0c.jpg" 
 height="60%" width="40%">
